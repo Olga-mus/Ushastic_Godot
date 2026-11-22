@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bwsnq405ou84a"]
 
 [ext_resource type="Texture2D" uid="uid://btpdd5yecmuew" path="res://assets/bird/bird.png" id="1_crnqq"]
+[ext_resource type="Script" uid="uid://dhfkhrpi76vrl" path="res://scripts/bird.gd" id="1_hq4t0"]
 [ext_resource type="Texture2D" uid="uid://1r8twl11l8es" path="res://assets/bird/wing.png" id="2_j88tq"]
 
 [sub_resource type="Animation" id="Animation_3po83"]
@@ -20,6 +21,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_hq4t0"]
 resource_name = "swing"
+length = 0.9
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -41,6 +43,7 @@ _data = {
 
 [node name="Bird" type="Node2D" unique_id=997580156]
 scale = Vector2(0.8, 0.8)
+script = ExtResource("1_hq4t0")
 metadata/_edit_group_ = true
 
 [node name="Bird" type="Sprite2D" parent="." unique_id=909910315]
