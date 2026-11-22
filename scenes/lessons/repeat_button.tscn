@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://72iuk7o5x8g7"]
+
+[ext_resource type="PackedScene" uid="uid://brdjbg1ehhf8k" path="res://scenes/lessons/base_icon_btn.tscn" id="1_ciae2"]
+
+[node name="RepeatButton" unique_id=823475134 instance=ExtResource("1_ciae2")]

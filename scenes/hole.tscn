@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://d2iwaf7rawcdr"]
+
+[ext_resource type="Texture2D" uid="uid://cnqyss8ccuvqc" path="res://assets/hole/hole.png" id="1_lerre"]
+
+[node name="hole" type="Node2D" unique_id=574105607]
+
+[node name="Hole" type="Sprite2D" parent="." unique_id=726229504]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_lerre")

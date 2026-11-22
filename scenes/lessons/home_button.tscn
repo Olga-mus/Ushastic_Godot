@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dm3okyglt34e4"]
+
+[ext_resource type="PackedScene" uid="uid://brdjbg1ehhf8k" path="res://scenes/lessons/base_icon_btn.tscn" id="1_2y35h"]
+[ext_resource type="Texture2D" uid="uid://cseeq4tiivbmu" path="res://assets/icon/home.png" id="2_jcb12"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jcb12"]
+bg_color = Color(0.8552634, 0.6091828, 0.31056246, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8784314, 0.48235294, 0, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+shadow_color = Color(0, 0, 0, 0.27450982)
+shadow_size = 3
+shadow_offset = Vector2(0, 4)
+
+[node name="HomeButton" unique_id=823475134 instance=ExtResource("1_2y35h")]
+theme_override_styles/normal = SubResource("StyleBoxFlat_jcb12")
+
+[node name="TextureRect" parent="." index="0" unique_id=457574219]
+texture = ExtResource("2_jcb12")

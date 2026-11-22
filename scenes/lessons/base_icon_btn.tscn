@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://brdjbg1ehhf8k"]
+
+[ext_resource type="Texture2D" uid="uid://c3jsn2g5h037j" path="res://assets/icon/repeat.png" id="1_wvtw6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_upbmx"]
+bg_color = Color(0.8552634, 0.6091828, 0.31056246, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8784314, 0.48235294, 0, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+shadow_color = Color(0, 0, 0, 0.27450982)
+shadow_size = 3
+shadow_offset = Vector2(0, 4)
+
+[node name="RepeatButton" type="Button" unique_id=823475134]
+custom_minimum_size = Vector2(200, 200)
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_upbmx")
+icon_alignment = 1
+expand_icon = true
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=457574219]
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_wvtw6")
+expand_mode = 1
+stretch_mode = 5

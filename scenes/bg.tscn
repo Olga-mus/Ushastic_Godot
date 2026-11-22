@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://wq4605g3657u"]
+
+[ext_resource type="Texture2D" uid="uid://b6eag3a87j1m7" path="res://assets/background/_11_background.png" id="1_7sudn"]
+[ext_resource type="Script" uid="uid://cye5e58pnl78v" path="res://scripts/bg.gd" id="1_b16yh"]
+[ext_resource type="Texture2D" uid="uid://b7w5lt1e8ifcq" path="res://assets/background/_02_trees and bushes.png" id="1_e8j8q"]
+[ext_resource type="Texture2D" uid="uid://hg2iy4twqp35" path="res://assets/background/_07_huge_clouds.png" id="2_b16yh"]
+[ext_resource type="Texture2D" uid="uid://cvsoom2wl0y8q" path="res://assets/background/_03_distant_trees.png" id="2_iq1of"]
+[ext_resource type="Texture2D" uid="uid://px5usy030mj0" path="res://assets/background/_04_bushes.png" id="3_36ycx"]
+[ext_resource type="Texture2D" uid="uid://n6nbnk13hmm2" path="res://assets/background/_09_distant_clouds1.png" id="3_twoho"]
+[ext_resource type="Texture2D" uid="uid://d255u54w4jnpi" path="res://assets/background/_08_clouds.png" id="7_pi0n5"]
+
+[node name="BG" type="ParallaxBackground" unique_id=85606813]
+script = ExtResource("1_b16yh")
+
+[node name="ParallaxLayer1" type="ParallaxLayer" parent="." unique_id=1054252500]
+motion_mirroring = Vector2(3812, 0)
+
+[node name="11Background" type="Sprite2D" parent="ParallaxLayer1" unique_id=1334693695]
+scale = Vector2(0.93749994, 0.70310485)
+texture = ExtResource("1_7sudn")
+centered = false
+
+[node name="11Background2" type="Sprite2D" parent="ParallaxLayer1" unique_id=1678897954]
+position = Vector2(1897, 0)
+scale = Vector2(0.93603516, 0.70310485)
+texture = ExtResource("1_7sudn")
+centered = false
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="." unique_id=1590308955]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(3868, 0)
+
+[node name="09DistantClouds1" type="Sprite2D" parent="ParallaxLayer6" unique_id=765003738]
+scale = Vector2(0.93603534, 0.5912031)
+texture = ExtResource("3_twoho")
+centered = false
+
+[node name="09DistantClouds2" type="Sprite2D" parent="ParallaxLayer6" unique_id=1200350786]
+position = Vector2(1899, 0)
+scale = Vector2(0.93603534, 0.5912031)
+texture = ExtResource("3_twoho")
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="." unique_id=2106288006]
+motion_scale = Vector2(0.3, 1)
+motion_mirroring = Vector2(3756, 0)
+
+[node name="07HugeClouds" type="Sprite2D" parent="ParallaxLayer4" unique_id=68489164]
+scale = Vector2(0.9360352, 0.70310473)
+texture = ExtResource("2_b16yh")
+centered = false
+
+[node name="07HugeClouds2" type="Sprite2D" parent="ParallaxLayer4" unique_id=1843738861]
+position = Vector2(1891, 0)
+scale = Vector2(0.9360352, 0.70310473)
+texture = ExtResource("2_b16yh")
+centered = false
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="." unique_id=206808558]
+motion_scale = Vector2(0.1, 1)
+motion_mirroring = Vector2(3759, 0)
+
+[node name="08Clouds" type="Sprite2D" parent="ParallaxLayer5" unique_id=871127346]
+position = Vector2(0, 160)
+scale = Vector2(0.9360353, 0.5996119)
+texture = ExtResource("7_pi0n5")
+centered = false
+
+[node name="08Clouds2" type="Sprite2D" parent="ParallaxLayer5" unique_id=1335701476]
+position = Vector2(1895, 160)
+scale = Vector2(0.9360353, 0.5996119)
+texture = ExtResource("7_pi0n5")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="." unique_id=8487730]
+motion_scale = Vector2(0.1, 1)
+motion_offset = Vector2(0.1, 0)
+motion_mirroring = Vector2(3840, 0)
+
+[node name="03DistantTrees" type="Sprite2D" parent="ParallaxLayer2" unique_id=427080296]
+position = Vector2(0, 101)
+scale = Vector2(0.93749994, 0.59185)
+texture = ExtResource("2_iq1of")
+centered = false
+
+[node name="03DistantTrees2" type="Sprite2D" parent="ParallaxLayer2" unique_id=920695109]
+position = Vector2(1909, 101)
+scale = Vector2(0.9360351, 0.59185)
+texture = ExtResource("2_iq1of")
+centered = false
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="." unique_id=993053065]
+motion_scale = Vector2(0.11, 1)
+motion_mirroring = Vector2(3759, 0)
+
+[node name="02TreesAndBushes" type="Sprite2D" parent="ParallaxLayer7" unique_id=954117599]
+scale = Vector2(0.9360351, 0.7031048)
+texture = ExtResource("1_e8j8q")
+centered = false
+
+[node name="02TreesAndBushes2" type="Sprite2D" parent="ParallaxLayer7" unique_id=328202238]
+position = Vector2(1907, 0)
+scale = Vector2(0.9360351, 0.7031048)
+texture = ExtResource("1_e8j8q")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="." unique_id=1126622252]
+motion_scale = Vector2(0.2, 1)
+motion_mirroring = Vector2(3752, 0)
+
+[node name="04Bushes" type="Sprite2D" parent="ParallaxLayer3" unique_id=2115632339]
+position = Vector2(0, 415.99997)
+scale = Vector2(0.9375, 0.4340233)
+texture = ExtResource("3_36ycx")
+centered = false
+
+[node name="04Bushes2" type="Sprite2D" parent="ParallaxLayer3" unique_id=2090571044]
+position = Vector2(1910, 416)
+scale = Vector2(0.9360351, 0.4340233)
+texture = ExtResource("3_36ycx")
+centered = false

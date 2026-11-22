@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://c22hmqx4vvvyk"]
+
+[ext_resource type="FontFile" uid="uid://co0lwecninehu" path="res://assets/fonts/Comfortaa/static/Comfortaa-Regular.ttf" id="1_ynnfx"]
+
+[sub_resource type="Theme" id="Theme_r673r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_be20f"]
+bg_color = Color(0.28688124, 0.6502096, 0.78758895, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.19607843, 0.4862745, 0.7019608, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_left = 30.0
+expand_margin_top = 10.0
+expand_margin_right = 30.0
+expand_margin_bottom = 10.0
+shadow_color = Color(0, 0, 0, 0.27450982)
+shadow_size = 3
+shadow_offset = Vector2(0, 4)
+
+[node name="CustomButtom" type="Button" unique_id=922711477]
+anchors_preset = -1
+anchor_right = 0.071875
+anchor_bottom = 0.075
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_r673r")
+theme_override_fonts/font = ExtResource("1_ynnfx")
+theme_override_font_sizes/font_size = 58
+theme_override_styles/normal = SubResource("StyleBoxFlat_be20f")
+text = "TASK"
+metadata/_edit_use_anchors_ = true

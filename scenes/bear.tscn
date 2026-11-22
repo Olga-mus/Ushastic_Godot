@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://iiwtbuekp2e1"]
+
+[ext_resource type="Texture2D" uid="uid://cuov0ah0g6cbt" path="res://assets/bear/bear_eye_L.png" id="1_a5djg"]
+[ext_resource type="Texture2D" uid="uid://dsw80uctc0tvq" path="res://assets/bear/bear_eye_R.png" id="2_h7gg4"]
+[ext_resource type="Texture2D" uid="uid://df22b03xcr2i1" path="res://assets/bear/bear.png" id="3_r4uyl"]
+[ext_resource type="PackedScene" uid="uid://dtcjh6i5sdxnr" path="res://scenes/parts/eyes.tscn" id="4_0f2y1"]
+
+[sub_resource type="Animation" id="Animation_a5djg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BearEyeL:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BearEyeR:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BearEyeL:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BearEyeR:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_h7gg4"]
+resource_name = "rotation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BearEyeL:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.2268928, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BearEyeR:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.2268928, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BearEyeL:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BearEyeR:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r4uyl"]
+_data = {
+&"RESET": SubResource("Animation_a5djg"),
+&"rotation": SubResource("Animation_h7gg4")
+}
+
+[node name="bear" type="Node2D" unique_id=985561905]
+scale = Vector2(0.6, 0.6)
+metadata/_edit_group_ = true
+
+[node name="BearEyeL" type="Sprite2D" parent="." unique_id=532730382]
+position = Vector2(128, -88)
+texture = ExtResource("1_a5djg")
+
+[node name="BearEyeR" type="Sprite2D" parent="." unique_id=875802968]
+position = Vector2(-128, -88)
+texture = ExtResource("2_h7gg4")
+
+[node name="Bear" type="Sprite2D" parent="." unique_id=923302734]
+texture = ExtResource("3_r4uyl")
+
+[node name="Eyes" parent="." unique_id=1035785474 instance=ExtResource("4_0f2y1")]
+position = Vector2(-8, -112)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=522179158]
+libraries/ = SubResource("AnimationLibrary_r4uyl")

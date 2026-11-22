@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dw8tfoual2p0c"]
+
+[ext_resource type="Texture2D" path="res://ushastic/ears.png" id="1_57sws"]
+[ext_resource type="Script" uid="uid://mp2xfpt5to7e" path="res://ushastic.gd" id="1_g7nnv"]
+[ext_resource type="Texture2D" path="res://ushastic/paw.png" id="2_g7nnv"]
+[ext_resource type="Texture2D" path="res://ushastic/body.png" id="3_xp7pn"]
+[ext_resource type="Texture2D" path="res://ushastic/open_eyes.png" id="4_yrqcf"]
+
+[node name="Ushastic" type="Node2D" unique_id=1536299866]
+script = ExtResource("1_g7nnv")
+
+[node name="Ears" type="Sprite2D" parent="." unique_id=389783713]
+texture = ExtResource("1_57sws")
+
+[node name="Paw" type="Sprite2D" parent="." unique_id=253767]
+texture = ExtResource("2_g7nnv")
+
+[node name="Body" type="Sprite2D" parent="." unique_id=1753222136]
+texture = ExtResource("3_xp7pn")
+
+[node name="Eyes" type="Sprite2D" parent="." unique_id=691438505]
+texture = ExtResource("4_yrqcf")
+
+[node name="BlinkTimer" type="Timer" parent="." unique_id=188113545]

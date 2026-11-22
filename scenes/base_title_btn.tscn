@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://fhrakvgxocky"]
+
+[ext_resource type="Theme" uid="uid://ddcq6l6aotynp" path="res://new_theme.tres" id="1_rhrxn"]
+[ext_resource type="FontFile" uid="uid://bb118wn7q4l54" path="res://assets/fonts/NotoColorEmoji/NotoColorEmoji-Regular.ttf" id="2_6skw0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0ka3"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.03529412, 0.9019608, 0.21960784, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+shadow_color = Color(0, 0, 0, 0.27450982)
+shadow_size = 3
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0h7mo"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.03529412, 0.9019608, 0.21960784, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+expand_margin_top = 10.0
+expand_margin_bottom = 10.0
+shadow_color = Color(0.15686275, 0.6509804, 0, 0.6)
+shadow_size = 3
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nr8wp"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.03529412, 0.9019608, 0.21960784, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+expand_margin_top = 10.0
+expand_margin_bottom = 10.0
+shadow_color = Color(0.15686275, 0.6509804, 0, 0.6)
+shadow_size = 3
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2bti"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.03529412, 0.9019608, 0.21960784, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+expand_margin_top = 10.0
+expand_margin_bottom = 10.0
+shadow_color = Color(0.15686275, 0.6509804, 0, 0.6)
+shadow_size = 3
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdubu"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.03529412, 0.9019608, 0.21960784, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+expand_margin_top = 10.0
+expand_margin_bottom = 10.0
+shadow_color = Color(0.15686275, 0.6509804, 0, 0.6)
+shadow_size = 3
+shadow_offset = Vector2(3, 3)
+
+[node name="EngButton" type="Button" unique_id=1142157214]
+custom_minimum_size = Vector2(200, 200)
+size_flags_horizontal = 10
+size_flags_vertical = 0
+theme = ExtResource("1_rhrxn")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_6skw0")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_x0ka3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0h7mo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nr8wp")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_d2bti")
+theme_override_styles/focus = SubResource("StyleBoxFlat_kdubu")
+text = "🇬🇧
+"

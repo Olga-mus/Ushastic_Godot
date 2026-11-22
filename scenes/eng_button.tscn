@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://ca5inom4sqm7t"]
+
+[ext_resource type="PackedScene" uid="uid://fhrakvgxocky" path="res://scenes/base_title_btn.tscn" id="1_tm35x"]
+
+[node name="EngButton" unique_id=1142157214 instance=ExtResource("1_tm35x")]

@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bwsnq405ou84a"]
+
+[ext_resource type="Texture2D" uid="uid://btpdd5yecmuew" path="res://assets/bird/bird.png" id="1_crnqq"]
+[ext_resource type="Texture2D" uid="uid://1r8twl11l8es" path="res://assets/bird/wing.png" id="2_j88tq"]
+
+[sub_resource type="Animation" id="Animation_3po83"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Wing:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hq4t0"]
+resource_name = "swing"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Wing:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.43, 0.88),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.17627825, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_twsrt"]
+_data = {
+&"RESET": SubResource("Animation_3po83"),
+&"swing": SubResource("Animation_hq4t0")
+}
+
+[node name="Bird" type="Node2D" unique_id=997580156]
+scale = Vector2(0.8, 0.8)
+metadata/_edit_group_ = true
+
+[node name="Bird" type="Sprite2D" parent="." unique_id=909910315]
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("1_crnqq")
+
+[node name="Wing" type="Sprite2D" parent="." unique_id=365614710]
+position = Vector2(-8, 16)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("2_j88tq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=807979234]
+libraries/ = SubResource("AnimationLibrary_twsrt")

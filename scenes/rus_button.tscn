@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bek3e2bqsnoq6"]
+
+[ext_resource type="PackedScene" uid="uid://fhrakvgxocky" path="res://scenes/base_title_btn.tscn" id="1_qhs8j"]
+
+[node name="RusButton" unique_id=1142157214 instance=ExtResource("1_qhs8j")]
