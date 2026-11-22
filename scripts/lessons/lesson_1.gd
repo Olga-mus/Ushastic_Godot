@@ -15,8 +15,8 @@ func _ready():
 	bird_button.pressed.connect(_on_bird_button_pressed)
 	
 	# ⭐ БЛОКИРУЕМ ПЕРСОНАЖЕЙ В САМОМ НАЧАЛЕ
-	bear_button.set_process_input(false) 
-	bird_button.set_process_input(false) 
+	bear_button.disabled = true 
+	bird_button.disabled = true 
 	
 	# Затемняем обе кнопки
 	bear_button.modulate = Color(0.5, 0.5, 0.5)
@@ -73,7 +73,7 @@ func _on_start_button_pressed():
 	
 	#  РАЗБЛОКИРОВАЕМ ПТИЧКУ (и цвет, и клик) в один момент
 	bird_button.modulate = Color(1, 1, 1) 
-	bird_button.set_process_input(true)
+	bird_button.disabled = false
 	
 # ⭐ НОВАЯ ФУНКЦИЯ: Срабатывает, когда ребенок нажимает на Птичку
 func _on_bird_button_pressed():
