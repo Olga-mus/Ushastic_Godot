@@ -8,6 +8,10 @@ extends Control
 var bird_sounds: Array[AudioStream] = [] # Сюда загрузим все 11 звуков
 var bird_queue: Array[AudioStream] = []  # Это наш "мешок" для перемешивания
 
+# ⭐ КОНСТАНТЫ ЦВЕТОВ (вынесены наверх)
+const COLOR_LOCKED = Color(0.513, 0.544, 0.746, 1.0)  # Темно-серый для заблокированных
+const COLOR_NORMAL = Color(1, 1, 1)        # Обычный цвет (без затемнения)
+
 func _ready():
 	# Подключаем нажатие на кнопку
 	start_button.pressed.connect(_on_start_button_pressed)
@@ -19,15 +23,15 @@ func _ready():
 	bird_button.disabled = true 
 	
 	# Затемняем обе кнопки
-	bear_button.modulate = Color(0.5, 0.5, 0.5)
-	bird_button.modulate = Color(0.5, 0.5, 0.5)
+	bear_button.modulate = COLOR_LOCKED
+	bird_button.modulate = COLOR_LOCKED
 	
 	# ⭐ Загружаем файлы с 1 по 11 автоматически
 	for i in range(1, 12):
 		var path = "res://assets/sounds/lesson1/task/%dbird.mp3" % i
 		bird_sounds.append(load(path))
 		print("Загружено звуков: ", bird_sounds.size())
-
+		
 # Вынесенная функция паузы
 func pause_between_replica():
 	await get_tree().create_timer(1.0).timeout 
@@ -72,7 +76,7 @@ func _on_start_button_pressed():
 	await voice_player.finished 
 	
 	#  РАЗБЛОКИРОВАЕМ ПТИЧКУ (и цвет, и клик) в один момент
-	bird_button.modulate = Color(1, 1, 1) 
+	bird_button.modulate = COLOR_NORMAL
 	bird_button.disabled = false
 	
 # ⭐ НОВАЯ ФУНКЦИЯ: Срабатывает, когда ребенок нажимает на Птичку
@@ -81,6 +85,8 @@ func _on_bird_button_pressed():
 	
 	# Проверяем, не играет ли уже звук, чтобы не было наложения
 	if not voice_player.playing:
+		bird_button.disabled = true
+		bird_button.modulate = COLOR_LOCKED
 		# Загружаем звук птички и включаем его
 		voice_player.stream = get_random_bird_sound()
 		voice_player.play()

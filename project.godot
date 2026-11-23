@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="Ushastic"
-run/main_scene="uid://de0icm1vckv8u"
+run/main_scene="uid://c33g3awouh2r6"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
+
+[audio]
+
+general/default_playback_type.web=0
+driver/output_latency=100
 
 [display]
 
@@ -51,6 +56,10 @@ texture={
 "roughness/mode": 0,
 "roughness/src_normal": ""
 }
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [internationalization]
 

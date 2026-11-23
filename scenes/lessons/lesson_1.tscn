@@ -4,23 +4,44 @@
 [ext_resource type="Script" uid="uid://pt3mmggy8acr" path="res://scripts/lessons/lesson_1.gd" id="2_2o3t5"]
 [ext_resource type="AudioStream" uid="uid://dxbgjo5cmnxc7" path="res://assets/sounds/lesson1/1Ru.mp3" id="2_a3un5"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n615k"]
-bg_color = Color(0.4117647, 0.5254902, 0.7921569, 0.31764707)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_poiui"]
+bg_color = Color(0.23921569, 0.5411765, 0.8745098, 0.26666668)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.8823061, 0.7068805, 0.7721922, 0.69803923)
+border_color = Color(0.21960784, 0.6901961, 0.8784314, 0.18039216)
+corner_radius_top_left = 250
+corner_radius_top_right = 250
+corner_radius_bottom_right = 250
+corner_radius_bottom_left = 250
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n615k"]
+bg_color = Color(0.23921569, 0.5411765, 0.8745098, 0.26666668)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.21960784, 0.6901961, 0.8784314, 0.18039216)
 corner_radius_top_left = 250
 corner_radius_top_right = 250
 corner_radius_bottom_right = 250
 corner_radius_bottom_left = 250
 
 [node name="Lesson1" unique_id=1921475603 instance=ExtResource("1_38hbx")]
+offset_left = -7.0
+offset_right = -7.0
 script = ExtResource("2_2o3t5")
 
-[node name="BirdButton" parent="MarginContainer/VBoxContainer/PersonsContainer" parent_id_path=PackedInt32Array(1618720116) index="4" unique_id=1205702489]
+[node name="PersonsContainer" parent="MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(815305948) index="1" unique_id=1618720116]
+mouse_filter = 2
+
+[node name="BearButton" parent="MarginContainer/VBoxContainer/PersonsContainer" index="0" unique_id=672029996]
+theme_override_styles/disabled = SubResource("StyleBoxFlat_poiui")
+
+[node name="BirdButton" parent="MarginContainer/VBoxContainer/PersonsContainer" index="2" unique_id=1205702489]
 theme_override_styles/disabled = SubResource("StyleBoxFlat_n615k")
 
 [node name="VoicePlayer" type="AudioStreamPlayer" parent="." index="2" unique_id=2025303538]
 stream = ExtResource("2_a3un5")
+playback_type = 1
