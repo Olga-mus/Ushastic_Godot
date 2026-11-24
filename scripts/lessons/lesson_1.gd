@@ -12,6 +12,12 @@ var bear_queue: Array[AudioStream] = []
 # Переменная для отслеживания этапа: 0 - начало урока, 1 - переход к заданию
 var lesson_stage: int = 0
 
+var character_queue: Array[String] = [] # Очередь персонажей ("bird" или "bear")
+var last_character: String = ""         # Кто был в прошлый раз
+var repeat_count: int = 0               # Сколько раз подряд он уже выпал
+var current_target: String = ""         # Кого сейчас загадали (для проверки ответа)
+
+
 const COLOR_LOCKED = Color(0.513, 0.544, 0.746, 1.0) 
 const COLOR_NORMAL = Color(1, 1, 1)       
 
@@ -102,8 +108,8 @@ func _on_start_button_pressed():
 	elif lesson_stage == 1:
 		# Запуск самого задания (после нажатия на кнопку "Задание")
 		print("Начинаем задание!")
-		await play_ushastik_voice("4Ru.mp3")
-		# Здесь дальше пойдет логика угадывания звуков
+		await _on_task_button()
+		guess_sound()
 	
 # ⭐ НАЖАТИЕ НА ПТИЧКУ
 func _on_bird_button_pressed():
@@ -152,3 +158,12 @@ func _on_bear_button_pressed():
 		lesson_stage = 1
 		start_button.text = "Задание"
 		start_button.show()
+func _on_task_button():
+	#Ушастик дает задание 
+	await play_ushastik_voice("4Ru.mp3")
+	# Разблокируем Мишку и Птичку для ребенка
+	set_button_lock_state(bear_button, false)
+	set_button_lock_state(bird_button, false)
+	
+func guess_sound():
+	pass
