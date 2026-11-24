@@ -6,6 +6,12 @@ extends Control
 @onready var bird_button: Button = $MarginContainer/VBoxContainer/PersonsContainer/BirdButton
 @onready var ushastic: Node2D = $MarginContainer/VBoxContainer/PersonsContainer/UshasticContainer/Ushastic
 @onready var repeat_button: Button = $MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/RepeatButton
+@onready var body_one: TextureRect = $MarginContainer/VBoxContainer/PanelContainer/CarrotContainer/HBoxContainer/Carrot1/body
+@onready var tail_one: TextureRect = $MarginContainer/VBoxContainer/PanelContainer/CarrotContainer/HBoxContainer/Carrot1/tail
+@onready var body_two: TextureRect = $MarginContainer/VBoxContainer/PanelContainer/CarrotContainer/HBoxContainer/Carrot2/body
+@onready var tail_two: TextureRect = $MarginContainer/VBoxContainer/PanelContainer/CarrotContainer/HBoxContainer/Carrot2/tail
+@onready var body_three: TextureRect = $MarginContainer/VBoxContainer/PanelContainer/CarrotContainer/HBoxContainer/Carrot3/body
+@onready var tail_three: TextureRect = $MarginContainer/VBoxContainer/PanelContainer/CarrotContainer/HBoxContainer/Carrot3/tail
 
 
 var bird_sounds: Array[AudioStream] = [] 
@@ -180,7 +186,17 @@ func _on_task_button():
 	
 func _on_repeat_button_pressed():
 	# Повторяем самый последний звук птички или мишки
-	await repeat_last_sound()	
+	# Работает только когда никто не говорит и уже был хотя бы один звук животного
+	if not voice_player.playing and last_animal_sound != null:
+		var bear_was_locked = bear_button.disabled
+		var bird_was_locked = bird_button.disabled
+		set_button_lock_state(bear_button, true)
+		set_button_lock_state(bird_button, true)
+		
+		await repeat_last_sound()
+		
+		set_button_lock_state(bear_button, bear_was_locked)
+		set_button_lock_state(bird_button, bird_was_locked)
 	
 func guess_sound():
 	# Пока звук загадывается, блокируем кнопки, чтобы ребенок не нажал раньше времени
