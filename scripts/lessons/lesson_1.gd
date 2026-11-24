@@ -261,10 +261,12 @@ func check_answer(chosen_character: String):
 	if chosen_character == current_target:
 		print("ВЕРНО! Угадал: ", chosen_character)
 		# Здесь можно проиграть звук похвалы и закрасить морковку
-		jump_ushastic()
+		if chosen_character == current_target:
+			print("ВЕРНО! Угадал: ", chosen_character)
+		
+		# Вызываем прыжок из скрипта Ушастика
+		ushastic.jump_ushastic()
 		await play_ushastik_voice("successRu.mp3")
-		
-		
 		await pause_between_replica()
 		# Загадываем следующий звук
 		await guess_sound()
@@ -283,15 +285,7 @@ func check_answer(chosen_character: String):
 		set_button_lock_state(bear_button, false)
 		set_button_lock_state(bird_button, false)
 
-# Ушастик радостно подпрыгивает
-func jump_ushastic():
-	var start_y = ushastic.position.y
-	var tween = create_tween()
-	# Подпрыгивает вверх на 50 пикселей за 0.18 сек
-	tween.tween_property(ushastic, "position:y", start_y - 150.0, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	# Мягко приземляется обратно за 0.18 сек
-	tween.tween_property(ushastic, "position:y", start_y, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-	await tween.finished
+
 
 # Повторяет самый последний прозвучавший звук птички или мишки
 func repeat_last_sound():
@@ -299,3 +293,4 @@ func repeat_last_sound():
 		voice_player.stream = last_animal_sound
 		voice_player.play()
 		await voice_player.finished
+		
