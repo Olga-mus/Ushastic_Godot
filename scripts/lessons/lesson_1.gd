@@ -250,7 +250,7 @@ func check_answer(chosen_character: String):
 		print("ОШИБКА! Выбрано: ", chosen_character, ", а загадан был: ", current_target)
 		# Здесь можно проиграть звук "попробуй еще раз"
 		# await play_ushastik_voice("try_again.mp3")
-		#ushastic.play_fail()
+		ushastic.play_fail()
 		await play_ushastik_voice("failRu.mp3")
 		
 		await pause_between_replica()

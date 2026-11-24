@@ -24,3 +24,13 @@ func start_breathing_animation():
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_IN_OUT)
 		
+		
+func play_fail():
+	# Запускаем анимацию 
+	await play_fail_times(2)
+
+# Универсальная функция для повтора анимации нужное количество раз
+func play_fail_times(count: int):
+	for i in range(count):
+		anim.play("fail")
+		await anim.animation_finished		
