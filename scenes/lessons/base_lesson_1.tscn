@@ -214,11 +214,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer" unique_id=1683751841]
-custom_minimum_size = Vector2(600, 200)
+custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 262
+theme_override_constants/separation = 108
 
 [node name="RepeatButton" parent="MarginContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=823475134 instance=ExtResource("4_1j42j")]
 layout_mode = 2

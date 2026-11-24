@@ -1,11 +1,11 @@
 extends Node2D
 
 
-@onready var walk: AnimationPlayer = $Walk
+@onready var anim: AnimationPlayer = $Walk
 
 func _ready():
 # --- Ходьба (зациклена и играет постоянно) ---
-	walk.play("walk")
+	anim.play("walk")
 	# Запускаем бесконечную анимацию дыхания
 	start_breathing_animation()
 	
@@ -23,3 +23,4 @@ func start_breathing_animation():
 	tween.tween_property(self, "position:y", position.y, 1.2)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_IN_OUT)
+		

@@ -4,6 +4,8 @@ extends Control
 @onready var voice_player: AudioStreamPlayer = $VoicePlayer
 @onready var bear_button: Button = $MarginContainer/VBoxContainer/PersonsContainer/BearButton
 @onready var bird_button: Button = $MarginContainer/VBoxContainer/PersonsContainer/BirdButton
+@onready var ushastic: Node2D = $MarginContainer/VBoxContainer/PersonsContainer/UshasticContainer/Ushastic
+
 
 var bird_sounds: Array[AudioStream] = [] 
 var bird_queue: Array[AudioStream] = []  
@@ -237,7 +239,9 @@ func check_answer(chosen_character: String):
 	if chosen_character == current_target:
 		print("ВЕРНО! Угадал: ", chosen_character)
 		# Здесь можно проиграть звук похвалы и закрасить морковку
-		# await play_ushastik_voice("good.mp3")
+		jump_ushastic()
+		await play_ushastik_voice("successRu.mp3")
+		
 		
 		await pause_between_replica()
 		# Загадываем следующий звук
@@ -246,9 +250,21 @@ func check_answer(chosen_character: String):
 		print("ОШИБКА! Выбрано: ", chosen_character, ", а загадан был: ", current_target)
 		# Здесь можно проиграть звук "попробуй еще раз"
 		# await play_ushastik_voice("try_again.mp3")
+		#ushastic.play_fail()
+		await play_ushastik_voice("failRu.mp3")
 		
 		await pause_between_replica()
 		# Разблокируем кнопки снова, чтобы ребенок попробовал ответить еще раз
 		# (или заново проиграйте загаданный звук)
 		set_button_lock_state(bear_button, false)
 		set_button_lock_state(bird_button, false)
+
+# Ушастик радостно подпрыгивает
+func jump_ushastic():
+	var start_y = ushastic.position.y
+	var tween = create_tween()
+	# Подпрыгивает вверх на 50 пикселей за 0.18 сек
+	tween.tween_property(ushastic, "position:y", start_y - 150.0, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	# Мягко приземляется обратно за 0.18 сек
+	tween.tween_property(ushastic, "position:y", start_y, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	await tween.finished

@@ -49,6 +49,9 @@ tracks/2/keys = {
 "values": [Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_kqveu"]
+resource_name = "fail"
+
 [sub_resource type="Animation" id="Animation_qgajw"]
 resource_name = "jump"
 loop_mode = 1
@@ -97,6 +100,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3kee8"]
 _data = {
 &"RESET": SubResource("Animation_2kxoa"),
+&"fail": SubResource("Animation_kqveu"),
 &"jump": SubResource("Animation_qgajw"),
 &"walk": SubResource("Animation_sebdp")
 }
