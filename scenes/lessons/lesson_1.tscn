@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://ur4hggi5nsam" path="res://scenes/lessons/base_lesson_1.tscn" id="1_38hbx"]
 [ext_resource type="Script" uid="uid://pt3mmggy8acr" path="res://scripts/lessons/lesson_1.gd" id="2_2o3t5"]
 [ext_resource type="AudioStream" uid="uid://dxbgjo5cmnxc7" path="res://assets/sounds/lesson1/1Ru.mp3" id="2_a3un5"]
+[ext_resource type="PackedScene" uid="uid://iiwtbuekp2e1" path="res://scenes/bear.tscn" id="3_poiui"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_poiui"]
 bg_color = Color(0.23921569, 0.5411765, 0.8745098, 0.26666668)
@@ -38,6 +39,13 @@ mouse_filter = 2
 
 [node name="BearButton" parent="MarginContainer/VBoxContainer/PersonsContainer" index="0" unique_id=672029996]
 theme_override_styles/disabled = SubResource("StyleBoxFlat_poiui")
+
+[node name="Bear" parent="MarginContainer/VBoxContainer/PersonsContainer/BearButton" index="1" unique_id=985561905 instance=ExtResource("3_poiui")]
+position = Vector2(210, 268)
+scale = Vector2(0.7, 0.7)
+
+[node name="bear" parent="MarginContainer/VBoxContainer/PersonsContainer/BearButton" index="2" unique_id=985561905]
+visible = false
 
 [node name="BirdButton" parent="MarginContainer/VBoxContainer/PersonsContainer" index="2" unique_id=1205702489]
 theme_override_styles/disabled = SubResource("StyleBoxFlat_n615k")

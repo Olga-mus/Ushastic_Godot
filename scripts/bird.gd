@@ -2,14 +2,14 @@ extends Node2D
 @onready var anim: AnimationPlayer = $AnimationPlayer
 
 func play_swing():
-	# Запускаем анимацию первый раз
-	anim.play("swing")
-	
-	# Ждем, пока она полностью не закончится
-	await anim.animation_finished
-	
-	# Запускаем анимацию второй раз
-	anim.play("swing")
+	# Запускаем анимацию 
+	await play_swing_times(2)
+
+# Универсальная функция для повтора анимации нужное количество раз
+func play_swing_times(count: int):
+	for i in range(count):
+		anim.play("swing")
+		await anim.animation_finished
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -71,6 +71,18 @@ corner_radius_top_right = 250
 corner_radius_bottom_right = 250
 corner_radius_bottom_left = 250
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0q20i"]
+bg_color = Color(0.23921569, 0.5411765, 0.8745098, 0.26666668)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.21960784, 0.6901961, 0.8784314, 0.18039216)
+corner_radius_top_left = 250
+corner_radius_top_right = 250
+corner_radius_bottom_right = 250
+corner_radius_bottom_left = 250
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3po83"]
 bg_color = Color(0.2901961, 0.654902, 0.75686276, 0.21568628)
 border_width_left = 2
@@ -78,6 +90,18 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.62352943, 0.84705883, 0.85882354, 0.5529412)
+corner_radius_top_left = 250
+corner_radius_top_right = 250
+corner_radius_bottom_right = 250
+corner_radius_bottom_left = 250
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x63s8"]
+bg_color = Color(0.23921569, 0.5411765, 0.8745098, 0.26666668)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.21960784, 0.6901961, 0.8784314, 0.18039216)
 corner_radius_top_left = 250
 corner_radius_top_right = 250
 corner_radius_bottom_right = 250
@@ -100,9 +124,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 70
-theme_override_constants/margin_top = 70
-theme_override_constants/margin_right = 70
+theme_override_constants/margin_left = 140
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 140
 theme_override_constants/margin_bottom = 70
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=815305948]
@@ -218,6 +242,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_ut6ft")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_0q20i")
 
 [node name="hole" type="TextureRect" parent="MarginContainer/VBoxContainer/PersonsContainer/BearButton" unique_id=177608363]
 layout_mode = 1
@@ -255,6 +280,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_3po83")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_x63s8")
 
 [node name="tree" type="TextureRect" parent="MarginContainer/VBoxContainer/PersonsContainer/BirdButton" unique_id=957685048]
 layout_mode = 1

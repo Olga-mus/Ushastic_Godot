@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Ushastic"
-run/main_scene="uid://c33g3awouh2r6"
+run/main_scene="uid://de0icm1vckv8u"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
