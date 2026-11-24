@@ -145,15 +145,33 @@ func color_next_carrot():
 	if carrots_collected == 0:
 		body_one.modulate = BODY_FILLED_COLOR
 		tail_one.modulate = TAIL_FILLED_COLOR
+		animate_carrot_pop(body_one.get_parent()) # ⭐ Анимация первой морковки
 	elif carrots_collected == 1:
 		body_two.modulate = BODY_FILLED_COLOR
 		tail_two.modulate = TAIL_FILLED_COLOR
+		animate_carrot_pop(body_two.get_parent()) # ⭐ Анимация второй морковки
 	elif carrots_collected == 2:
 		body_three.modulate = BODY_FILLED_COLOR
 		tail_three.modulate = TAIL_FILLED_COLOR
+		animate_carrot_pop(body_three.get_parent()) # ⭐ Анимация третьей морковки
 	
 	carrots_collected += 1
 	print("Закрашено морковок: ", carrots_collected)
+	
+# ⭐ Функция для эффекта "Пружинки" (Pop effect)
+func animate_carrot_pop(carrot_node: Control):
+	# Обязательно ставим точку масштабирования в центр морковки, 
+	# иначе она будет расти вправо-вниз
+	carrot_node.pivot_offset = carrot_node.size / 2
+	
+	var tween = create_tween()
+	# 1. Быстро увеличиваем морковку (за 0.15 сек до 120%)
+	tween.tween_property(carrot_node, "scale", Vector2(1.2, 1.2), 0.15)\
+		.set_trans(Tween.TRANS_SINE)
+	
+	# 2. Плавно возвращаем обратно, с легким отскоком (Ease Out)
+	tween.tween_property(carrot_node, "scale", Vector2(1.0, 1.0), 0.25)\
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 # ============================================================
 # ⭐ СЦЕНАРИЙ УРОКА (Обработчики кнопок)
