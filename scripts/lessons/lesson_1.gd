@@ -1,11 +1,16 @@
 extends Control
 
+# ============================================================
+# ⭐ ССЫЛКИ НА УЗЛЫ (UI и плеер)
+# ============================================================
 @onready var start_button: Button = $MarginContainer/CustomButtom
 @onready var voice_player: AudioStreamPlayer = $VoicePlayer
 @onready var bear_button: Button = $MarginContainer/VBoxContainer/PersonsContainer/BearButton
 @onready var bird_button: Button = $MarginContainer/VBoxContainer/PersonsContainer/BirdButton
 @onready var ushastic: Node2D = $MarginContainer/VBoxContainer/PersonsContainer/UshasticContainer/Ushastic
 @onready var repeat_button: Button = $MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/RepeatButton
+
+# Ссылки на части морковок для прогресс-бара
 @onready var body_one: TextureRect = $MarginContainer/VBoxContainer/PanelContainer/CarrotContainer/HBoxContainer/Carrot1/body
 @onready var tail_one: TextureRect = $MarginContainer/VBoxContainer/PanelContainer/CarrotContainer/HBoxContainer/Carrot1/tail
 @onready var body_two: TextureRect = $MarginContainer/VBoxContainer/PanelContainer/CarrotContainer/HBoxContainer/Carrot2/body
@@ -13,227 +18,256 @@ extends Control
 @onready var body_three: TextureRect = $MarginContainer/VBoxContainer/PanelContainer/CarrotContainer/HBoxContainer/Carrot3/body
 @onready var tail_three: TextureRect = $MarginContainer/VBoxContainer/PanelContainer/CarrotContainer/HBoxContainer/Carrot3/tail
 
-
+# ============================================================
+# ⭐ ПЕРЕМЕННЫЕ ДЛЯ ЗВУКОВ (Паттерн "Shuffle Bag")
+# ============================================================
+# Массивы хранят все загруженные аудиофайлы
 var bird_sounds: Array[AudioStream] = [] 
-var bird_queue: Array[AudioStream] = []  
 var bear_sounds: Array[AudioStream] = [] 
+# Очереди используются для перемешивания (чтобы звуки не повторялись подряд)
+var bird_queue: Array[AudioStream] = []  
 var bear_queue: Array[AudioStream] = []  
-# Переменная для отслеживания этапа: 0 - начало урока, 1 - переход к заданию
-var lesson_stage: int = 0
 
-var character_queue: Array[String] = [] # Очередь персонажей ("bird" или "bear")
-var last_character: String = ""         # Кто был в прошлый раз
-var repeat_count: int = 0               # Сколько раз подряд он уже выпал
-var current_target: String = ""         # Кого сейчас загадали (для проверки ответа)
-var last_animal_sound: AudioStream = null # Хранит самый последний звук птички или мишки
+# ============================================================
+# ⭐ ПЕРЕМЕННЫЕ ДЛЯ ЛОГИКИ УРОКА
+# ============================================================
+var lesson_stage: int = 0 # 0 - знакомство (туториал), 1 - основное задание (викторина)
 
+# Переменные для умного чередования персонажей
+var character_queue: Array[String] = [] # Очередь ("bird" или "bear")
+var last_character: String = ""         # Кто был загадан в прошлый раз
+var repeat_count: int = 0               # Сколько раз подряд он выпал
+var current_target: String = ""         # Кого сейчас нужно угадать
 
-const COLOR_LOCKED = Color(0.513, 0.544, 0.746, 1.0) 
-const COLOR_NORMAL = Color(1, 1, 1)       
+var last_animal_sound: AudioStream = null # Хранит последний звук животного (для кнопки "Повторить")
 
+# Переменные для сбора морковок
+var carrots_collected: int = 0 
+const MAX_CARROWS: int = 3     
+
+# ============================================================
+# ⭐ КОНСТАНТЫ ЦВЕТОВ
+# ============================================================
+# Цвета для блокировки кнопок
+const COLOR_LOCKED = Color(0.513, 0.544, 0.746, 1.0) # Синевато-серый
+const COLOR_NORMAL = Color(1, 1, 1)                   # Оригинальный цвет
+
+# Цвета для морковок (работают, если исходные картинки в Figma белые)
+const BODY_EMPTY_COLOR = Color(1.0, 0.6, 0.0, 0.3)   # Бледно-оранжевый (30% прозрачности)
+const TAIL_EMPTY_COLOR = Color(0.2, 0.8, 0.2, 0.3)   # Бледно-зеленый
+const BODY_FILLED_COLOR = Color(1.0, 0.6, 0.0, 1.0)  # Яркий оранжевый
+const TAIL_FILLED_COLOR = Color(0.2, 0.8, 0.2, 1.0)  # Яркий зеленый
+
+# ============================================================
+# ⭐ ИНИЦИАЛИЗАЦИЯ
+# ============================================================
 func _ready():
+	# Подключаем сигналы кнопок к функциям
 	start_button.pressed.connect(_on_start_button_pressed)
 	bird_button.pressed.connect(_on_bird_button_pressed)
 	bear_button.pressed.connect(_on_bear_button_pressed)
 	repeat_button.pressed.connect(_on_repeat_button_pressed)
 	
+	# При старте блокируем персонажей
 	set_button_lock_state(bear_button, true)
 	set_button_lock_state(bird_button, true)
 	
+	# Загружаем все 11 звуков для каждой птички и мишки
 	for i in range(1, 12):
 		var path = "res://assets/sounds/lesson1/task/%dbird.mp3" % i
 		bird_sounds.append(load(path))
-	print("Загружено звуков птичек: ", bird_sounds.size())
-	
-	for i in range(1, 12):
-		var path = "res://assets/sounds/lesson1/task/%dbear.mp3" % i
-		bear_sounds.append(load(path))
-	print("Загружено звуков мишек: ", bear_sounds.size())
+		var path_bear = "res://assets/sounds/lesson1/task/%dbear.mp3" % i
+		bear_sounds.append(load(path_bear))
+		
+	# Делаем морковки "пустыми" при старте игры
+	body_one.modulate = BODY_EMPTY_COLOR
+	tail_one.modulate = TAIL_EMPTY_COLOR
+	body_two.modulate = BODY_EMPTY_COLOR
+	tail_two.modulate = TAIL_EMPTY_COLOR
+	body_three.modulate = BODY_EMPTY_COLOR
+	tail_three.modulate = TAIL_EMPTY_COLOR
 
 # ============================================================
-# ⭐ ФУНКЦИИ ДЕЙСТВИЙ (Что умеют персонажи)
+# ⭐ ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
 # ============================================================
 
-# Ушастик говорит
+# Воспроизводит голос Ушастика и ждет окончания
 func play_ushastik_voice(file_name: String):
 	voice_player.stream = load("res://assets/sounds/lesson1/" + file_name)
 	voice_player.play()
 	await voice_player.finished
 
-# Птичка поет случайную песню (и ждет окончания)
+# Воспроизводит случайный звук птички и запоминает его
 func play_random_bird_sound():
 	last_animal_sound = get_random_bird_sound()
 	voice_player.stream = last_animal_sound
 	voice_player.play()
 	await voice_player.finished
 	
-# Мишка поет случайную песню (и ждет окончания)
+# Воспроизводит случайный звук мишки и запоминает его
 func play_random_bear_sound():
 	last_animal_sound = get_random_bear_sound()
 	voice_player.stream = last_animal_sound
 	voice_player.play()
 	await voice_player.finished
 
-# Пауза между репликами
+# Пауза между репликами (1 секунда)
 func pause_between_replica():
 	await get_tree().create_timer(1.0).timeout 
 
-# Логика "мешка" для перемешивания птичек
+# ⭐ ЛОГИКА SHUFFLE BAG (достает звук из мешка, если мешок пуст - перемешивает)
 func get_random_bird_sound() -> AudioStream:
 	if bird_queue.is_empty():
-		bird_queue = bird_sounds.duplicate()
-		bird_queue.shuffle()
-	return bird_queue.pop_back()
+		bird_queue = bird_sounds.duplicate() # Копируем массив
+		bird_queue.shuffle()                 # Перемешиваем
+	return bird_queue.pop_back()             # Достаем последний
 	
-# Логика "мешка" для перемешивания мишек
 func get_random_bear_sound() -> AudioStream:
 	if bear_queue.is_empty():
 		bear_queue = bear_sounds.duplicate()
 		bear_queue.shuffle()
 	return bear_queue.pop_back()
 
-# Универсальная блокировка кнопок
+# Универсальная функция: блокирует кнопку и красит её в серый
 func set_button_lock_state(button: Control, is_locked: bool):
 	button.disabled = is_locked 
 	button.modulate = COLOR_LOCKED if is_locked else COLOR_NORMAL
 
+# Повторяет последний прозвучавший звук животного
+func repeat_last_sound():
+	if last_animal_sound != null:
+		voice_player.stream = last_animal_sound
+		voice_player.play()
+		await voice_player.finished
+		
+# Закрашивает следующую морковку (в зависимости от того, сколько уже собрано)
+func color_next_carrot():
+	if carrots_collected == 0:
+		body_one.modulate = BODY_FILLED_COLOR
+		tail_one.modulate = TAIL_FILLED_COLOR
+	elif carrots_collected == 1:
+		body_two.modulate = BODY_FILLED_COLOR
+		tail_two.modulate = TAIL_FILLED_COLOR
+	elif carrots_collected == 2:
+		body_three.modulate = BODY_FILLED_COLOR
+		tail_three.modulate = TAIL_FILLED_COLOR
+	
+	carrots_collected += 1
+	print("Закрашено морковок: ", carrots_collected)
 
 # ============================================================
-# ⭐ СЦЕНАРИЙ УРОКА (Читается как книга)
+# ⭐ СЦЕНАРИЙ УРОКА (Обработчики кнопок)
 # ============================================================
 
 func _on_start_button_pressed():
 	start_button.hide() 
+	
+	# ЭТАП 0: Знакомство
 	if lesson_stage == 0:
-	# 1. Приветствие
 		await play_ushastik_voice("1Ru.mp3")
 		await pause_between_replica()
-	
-	# 2. Инструкция
 		await play_ushastik_voice("2Ru.mp3")
-	
-	# 3. Демонстрация (Птичка поет)
-		await play_random_bird_sound()
-	
-	# Разблокируем птичку для ребенка
-		set_button_lock_state(bird_button, false)
+		await play_random_bird_sound() # Демонстрация: поет птичка
+		set_button_lock_state(bird_button, false) # Разблокируем птичку
 		
+	# ЭТАП 1: Задание
 	elif lesson_stage == 1:
-		# Запуск самого задания (после нажатия на кнопку "Задание")
 		print("Начинаем задание!")
-		await _on_task_button()
-		guess_sound()
+		await _on_task_button() # Ушастик говорит задание
+		await guess_sound()     # Загадываем первый звук
 	
-# ⭐ НАЖАТИЕ НА ПТИЧКУ
 func _on_bird_button_pressed():
+	# ЭТАП 0: Ребенок нажимает на птичку для знакомства
 	if lesson_stage == 0:
 		print("Ребенок нажал на Птичку!")
-		
 		if not voice_player.playing:
 			set_button_lock_state(bird_button, true)
-			
-			# Птичка машет крыльями
 			bird_button.get_node("Bird").play_swing()
-			
-			# Птичка поет (ждем окончания)
 			await play_random_bird_sound()
-			
 			await pause_between_replica()
-			
-			# 4. Ушастик знакомит с Мишкой
 			await play_ushastik_voice("3Ru.mp3")
+			await play_random_bear_sound() # Демонстрация: поет мишка
+			set_button_lock_state(bear_button, false) # Разблокируем мишку
 			
-			# 5. Демонстрация (Мишка поет)
-			await play_random_bear_sound()
-			
-			# Разблокируем Мишку для ребенка
-			set_button_lock_state(bear_button, false)
-			
+	# ЭТАП 1: Ребенок дает ОТВЕТ в викторине
 	elif lesson_stage == 1:
-		# Во 2 части проверяем ответ, что выбрана Птичка
 		await check_answer("bird")
 		
-	# ⭐ НАЖАТИЕ НА МИШКУ
 func _on_bear_button_pressed():
+	# ЭТАП 0: Ребенок нажимает на мишку для знакомства
 	if lesson_stage == 0:
 		print("Ребенок нажал на Мишку!")
-		
 		if not voice_player.playing:
 			set_button_lock_state(bear_button, true)
-			
-			# Мишка поворачивается
 			bear_button.get_node("Bear").play_rotation()
-			
-			# Мишка поет (ждем окончания)
 			await play_random_bear_sound()
-			
 			await pause_between_replica()
 			
-			#Появление кнопки Задание
-			# 4. Ушастик знакомит с Мишкой
-			#await play_ushastik_voice("4Ru.mp3")
-			
-			# Переключаем этап и показываем кнопку с текстом "Задание"
+			# Переходим к заданию
 			lesson_stage = 1
 			start_button.text = "Задание"
-			start_button.show()
+			start_button.show() # Показываем кнопку "Задание"
+			
+	# ЭТАП 1: Ребенок дает ОТВЕТ в викторине
 	elif lesson_stage == 1:
-		# Во 2 части проверяем ответ, что выбран Мишка
 		await check_answer("bear")
+
+# Ушастик объясняет суть задания
 func _on_task_button():
-	#Ушастик дает задание 
 	await play_ushastik_voice("4Ru.mp3")
 	
+# Кнопка "Повторить звук" (вызывается, если ребенок не расслышал)
 func _on_repeat_button_pressed():
-	# Повторяем самый последний звук птички или мишки
-	# Работает только когда никто не говорит и уже был хотя бы один звук животного
 	if not voice_player.playing and last_animal_sound != null:
+		# Запоминаем, были ли кнопки заблокированы
 		var bear_was_locked = bear_button.disabled
 		var bird_was_locked = bird_button.disabled
+		
+		# Блокируем на время повтора
 		set_button_lock_state(bear_button, true)
 		set_button_lock_state(bird_button, true)
 		
 		await repeat_last_sound()
 		
+		# Возвращаем кнопки в исходное состояние
 		set_button_lock_state(bear_button, bear_was_locked)
 		set_button_lock_state(bird_button, bird_was_locked)
 	
+# ⭐ ГЛАВНАЯ ФУНКЦИЯ ВИКТОРИНЫ: Загадывает звук
 func guess_sound():
-	# Пока звук загадывается, блокируем кнопки, чтобы ребенок не нажал раньше времени
+	# Блокируем кнопки, чтобы нельзя было нажать во время загадывания
 	set_button_lock_state(bear_button, true)
 	set_button_lock_state(bird_button, true)
 	
-	# Выбираем следующего персонажа с защитой от 3+ повторов подряд
+	# Узнаем, кто будет петь
 	current_target = get_next_character()
 	print("Загадан персонаж: ", current_target)
 	
-	# Проигрываем его случайный звук
+	# Проигрываем звук загаданного персонажа
 	if current_target == "bird":
 		await play_random_bird_sound()
 	else:
 		await play_random_bear_sound()
 		
-	# После того как звук прозвучал — разблокируем кнопки для ответа
+	# Разблокируем кнопки для ответа
 	set_button_lock_state(bear_button, false)
 	set_button_lock_state(bird_button, false)
 
-
-# Умный генератор чередования ("мишка-птичка-мишка", "птичка-птичка-мишка" и т.д.)
+# Умный генератор: кто будет петь? (Защита от 3+ повторов подряд)
 func get_next_character() -> String:
-	# Если мешок пуст, кладем туда по 2 птички и 2 мишки и перемешиваем
 	if character_queue.is_empty():
+		# Закидываем по 2 птички и 2 мишки
 		character_queue = ["bird", "bird", "bear", "bear"]
 		character_queue.shuffle()
 	
 	var next_char: String = character_queue.pop_back()
 	
-	# Если этот персонаж уже выпадал 2 раза подряд — принудительно меняем на другого
+	# Если выпал тот же, кто и 2 раза до этого - принудительно меняем
 	if next_char == last_character and repeat_count >= 2:
 		next_char = "bear" if last_character == "bird" else "bird"
-		# Возвращаем неиспользованного персонажа обратно в очередь
 		character_queue.push_front(last_character)
 	
-	# Обновляем счетчик повторов
+	# Обновляем статистику
 	if next_char == last_character:
 		repeat_count += 1
 	else:
@@ -242,55 +276,51 @@ func get_next_character() -> String:
 		
 	return next_char
 	
-# ⭐ ПРОВЕРКА ОТВЕТА РЕБЕНКА (Во 2 части)
+# ⭐ ПРОВЕРКА ОТВЕТА РЕБЕНКА
 func check_answer(chosen_character: String):
+	# Защита: если играет звук, клики игнорируются
 	if voice_player.playing:
 		return
 		
-	# Сразу блокируем обе кнопки, чтобы нельзя было нажать дважды
+	# Блокируем обе кнопки, чтобы нельзя было нажать дважды
 	set_button_lock_state(bear_button, true)
 	set_button_lock_state(bird_button, true)
 	
-	# Анимируем выбранного персонажа для визуального отклика
+	# Визуальный отклик на нажатие (анимация)
 	if chosen_character == "bird":
 		bird_button.get_node("Bird").play_swing()
 	else:
 		bear_button.get_node("Bear").play_rotation()
 		
-	# Сравниваем выбор ребенка с загаданным персонажем
+	# --- ЕСЛИ ОТВЕТ ПРАВИЛЬНЫЙ ---
 	if chosen_character == current_target:
 		print("ВЕРНО! Угадал: ", chosen_character)
-		# Здесь можно проиграть звук похвалы и закрасить морковку
-		if chosen_character == current_target:
-			print("ВЕРНО! Угадал: ", chosen_character)
 		
-		# Вызываем прыжок из скрипта Ушастика
-		ushastic.jump_ushastic()
+		color_next_carrot() # Закрашиваем морковку
+		
+		ushastic.jump_ushastic() # Ушастик прыгает от радости
 		await play_ushastik_voice("successRu.mp3")
 		await pause_between_replica()
-		# Загадываем следующий звук
-		await guess_sound()
+		
+		# Проверяем, не собрал ли ребенок все 3 морковки (Победа)
+		if carrots_collected >= MAX_CARROWS:
+			print("УРОК ПРОЙДЕН! Все морковки собраны!")
+			# Здесь можно добавить переход на карту:
+			# get_tree().change_scene_to_file("res://scenes/WorldMap.tscn")
+		else:
+			# Если не победил — загадываем следующий звук
+			await guess_sound()
+			
+	# --- ЕСЛИ ОТВЕТ НЕПРАВИЛЬНЫЙ ---
 	else:
 		print("ОШИБКА! Выбрано: ", chosen_character, ", а загадан был: ", current_target)
-		# Здесь можно проиграть звук "попробуй еще раз"
-		# await play_ushastik_voice("try_again.mp3")
-		ushastic.play_fail()
+		ushastic.play_fail() # Ушастик грустит
 		await play_ushastik_voice("failRu.mp3")
-		
 		await pause_between_replica()
-		# Повторяем самый последний звук птички или мишки
-		await repeat_last_sound()
-		# Разблокируем кнопки снова, чтобы ребенок попробовал ответить еще раз
 		
+		# Повторяем звук, чтобы ребенок послушал еще раз
+		await repeat_last_sound()
+		
+		# Разблокируем кнопки для новой попытки
 		set_button_lock_state(bear_button, false)
 		set_button_lock_state(bird_button, false)
-
-
-
-# Повторяет самый последний прозвучавший звук птички или мишки
-func repeat_last_sound():
-	if last_animal_sound != null:
-		voice_player.stream = last_animal_sound
-		voice_player.play()
-		await voice_player.finished
-		
