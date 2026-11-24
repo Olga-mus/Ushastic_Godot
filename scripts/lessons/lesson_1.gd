@@ -113,57 +113,142 @@ func _on_start_button_pressed():
 	
 # ⭐ НАЖАТИЕ НА ПТИЧКУ
 func _on_bird_button_pressed():
-	print("Ребенок нажал на Птичку!")
-	
-	if not voice_player.playing:
-		set_button_lock_state(bird_button, true)
+	if lesson_stage == 0:
+		print("Ребенок нажал на Птичку!")
 		
-		# Птичка машет крыльями
-		bird_button.get_node("Bird").play_swing()
-		
-		# Птичка поет (ждем окончания)
-		await play_random_bird_sound()
-		
-		await pause_between_replica()
-		
-		# 4. Ушастик знакомит с Мишкой
-		await play_ushastik_voice("3Ru.mp3")
-		
-		# 5. Демонстрация (Мишка поет)
-		await play_random_bear_sound()
-		
-		# Разблокируем Мишку для ребенка
-		set_button_lock_state(bear_button, false)
+		if not voice_player.playing:
+			set_button_lock_state(bird_button, true)
+			
+			# Птичка машет крыльями
+			bird_button.get_node("Bird").play_swing()
+			
+			# Птичка поет (ждем окончания)
+			await play_random_bird_sound()
+			
+			await pause_between_replica()
+			
+			# 4. Ушастик знакомит с Мишкой
+			await play_ushastik_voice("3Ru.mp3")
+			
+			# 5. Демонстрация (Мишка поет)
+			await play_random_bear_sound()
+			
+			# Разблокируем Мишку для ребенка
+			set_button_lock_state(bear_button, false)
+			
+	elif lesson_stage == 1:
+		# Во 2 части проверяем ответ, что выбрана Птичка
+		await check_answer("bird")
 		
 	# ⭐ НАЖАТИЕ НА МИШКУ
 func _on_bear_button_pressed():
-	print("Ребенок нажал на Мишку!")
-	
-	if not voice_player.playing:
-		set_button_lock_state(bear_button, true)
+	if lesson_stage == 0:
+		print("Ребенок нажал на Мишку!")
 		
-		# Мишка поворачивается
-		bear_button.get_node("Bear").play_rotation()
-		
-		# Мишка поет (ждем окончания)
-		await play_random_bear_sound()
-		
-		await pause_between_replica()
-		
-		#Появление кнопки Задание
-		# 4. Ушастик знакомит с Мишкой
-		#await play_ushastik_voice("4Ru.mp3")
-		
-		# Переключаем этап и показываем кнопку с текстом "Задание"
-		lesson_stage = 1
-		start_button.text = "Задание"
-		start_button.show()
+		if not voice_player.playing:
+			set_button_lock_state(bear_button, true)
+			
+			# Мишка поворачивается
+			bear_button.get_node("Bear").play_rotation()
+			
+			# Мишка поет (ждем окончания)
+			await play_random_bear_sound()
+			
+			await pause_between_replica()
+			
+			#Появление кнопки Задание
+			# 4. Ушастик знакомит с Мишкой
+			#await play_ushastik_voice("4Ru.mp3")
+			
+			# Переключаем этап и показываем кнопку с текстом "Задание"
+			lesson_stage = 1
+			start_button.text = "Задание"
+			start_button.show()
+	elif lesson_stage == 1:
+		# Во 2 части проверяем ответ, что выбран Мишка
+		await check_answer("bear")
 func _on_task_button():
 	#Ушастик дает задание 
 	await play_ushastik_voice("4Ru.mp3")
 	# Разблокируем Мишку и Птичку для ребенка
-	set_button_lock_state(bear_button, false)
-	set_button_lock_state(bird_button, false)
+	#set_button_lock_state(bear_button, false)
+	#set_button_lock_state(bird_button, false)
 	
 func guess_sound():
-	pass
+	# Пока звук загадывается, блокируем кнопки, чтобы ребенок не нажал раньше времени
+	set_button_lock_state(bear_button, true)
+	set_button_lock_state(bird_button, true)
+	
+	# Выбираем следующего персонажа с защитой от 3+ повторов подряд
+	current_target = get_next_character()
+	print("Загадан персонаж: ", current_target)
+	
+	# Проигрываем его случайный звук
+	if current_target == "bird":
+		await play_random_bird_sound()
+	else:
+		await play_random_bear_sound()
+		
+	# После того как звук прозвучал — разблокируем кнопки для ответа
+	set_button_lock_state(bear_button, false)
+	set_button_lock_state(bird_button, false)
+
+
+# Умный генератор чередования ("мишка-птичка-мишка", "птичка-птичка-мишка" и т.д.)
+func get_next_character() -> String:
+	# Если мешок пуст, кладем туда по 2 птички и 2 мишки и перемешиваем
+	if character_queue.is_empty():
+		character_queue = ["bird", "bird", "bear", "bear"]
+		character_queue.shuffle()
+	
+	var next_char: String = character_queue.pop_back()
+	
+	# Если этот персонаж уже выпадал 2 раза подряд — принудительно меняем на другого
+	if next_char == last_character and repeat_count >= 2:
+		next_char = "bear" if last_character == "bird" else "bird"
+		# Возвращаем неиспользованного персонажа обратно в очередь
+		character_queue.push_front(last_character)
+	
+	# Обновляем счетчик повторов
+	if next_char == last_character:
+		repeat_count += 1
+	else:
+		last_character = next_char
+		repeat_count = 1
+		
+	return next_char
+	
+# ⭐ ПРОВЕРКА ОТВЕТА РЕБЕНКА (Во 2 части)
+func check_answer(chosen_character: String):
+	if voice_player.playing:
+		return
+		
+	# Сразу блокируем обе кнопки, чтобы нельзя было нажать дважды
+	set_button_lock_state(bear_button, true)
+	set_button_lock_state(bird_button, true)
+	
+	# Анимируем выбранного персонажа для визуального отклика
+	if chosen_character == "bird":
+		bird_button.get_node("Bird").play_swing()
+	else:
+		bear_button.get_node("Bear").play_rotation()
+		
+	# Сравниваем выбор ребенка с загаданным персонажем
+	if chosen_character == current_target:
+		print("ВЕРНО! Угадал: ", chosen_character)
+		# Здесь можно проиграть звук похвалы и закрасить морковку
+		# await play_ushastik_voice("good.mp3")
+		
+		await pause_between_replica()
+		# Загадываем следующий звук
+		await guess_sound()
+	else:
+		print("ОШИБКА! Выбрано: ", chosen_character, ", а загадан был: ", current_target)
+		# Здесь можно проиграть звук "попробуй еще раз"
+		# await play_ushastik_voice("try_again.mp3")
+		
+		await pause_between_replica()
+		# Разблокируем кнопки снова, чтобы ребенок попробовал ответить еще раз
+		# (или заново проиграйте загаданный звук)
+		set_button_lock_state(bear_button, false)
+		set_button_lock_state(bird_button, false)
