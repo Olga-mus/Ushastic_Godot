@@ -9,6 +9,8 @@ var bird_sounds: Array[AudioStream] = []
 var bird_queue: Array[AudioStream] = []  
 var bear_sounds: Array[AudioStream] = [] 
 var bear_queue: Array[AudioStream] = []  
+# Переменная для отслеживания этапа: 0 - начало урока, 1 - переход к заданию
+var lesson_stage: int = 0
 
 const COLOR_LOCKED = Color(0.513, 0.544, 0.746, 1.0) 
 const COLOR_NORMAL = Color(1, 1, 1)       
@@ -83,19 +85,25 @@ func set_button_lock_state(button: Control, is_locked: bool):
 
 func _on_start_button_pressed():
 	start_button.hide() 
-	
+	if lesson_stage == 0:
 	# 1. Приветствие
-	await play_ushastik_voice("1Ru.mp3")
-	await pause_between_replica()
+		await play_ushastik_voice("1Ru.mp3")
+		await pause_between_replica()
 	
 	# 2. Инструкция
-	await play_ushastik_voice("2Ru.mp3")
+		await play_ushastik_voice("2Ru.mp3")
 	
 	# 3. Демонстрация (Птичка поет)
-	await play_random_bird_sound()
+		await play_random_bird_sound()
 	
 	# Разблокируем птичку для ребенка
-	set_button_lock_state(bird_button, false)
+		set_button_lock_state(bird_button, false)
+		
+	elif lesson_stage == 1:
+		# Запуск самого задания (после нажатия на кнопку "Задание")
+		print("Начинаем задание!")
+		await play_ushastik_voice("4Ru.mp3")
+		# Здесь дальше пойдет логика угадывания звуков
 	
 # ⭐ НАЖАТИЕ НА ПТИЧКУ
 func _on_bird_button_pressed():
@@ -136,5 +144,11 @@ func _on_bear_button_pressed():
 		
 		await pause_between_replica()
 		
+		#Появление кнопки Задание
 		# 4. Ушастик знакомит с Мишкой
 		#await play_ushastik_voice("4Ru.mp3")
+		
+		# Переключаем этап и показываем кнопку с текстом "Задание"
+		lesson_stage = 1
+		start_button.text = "Задание"
+		start_button.show()
