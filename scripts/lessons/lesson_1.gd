@@ -5,6 +5,7 @@ extends Control
 @onready var bear_button: Button = $MarginContainer/VBoxContainer/PersonsContainer/BearButton
 @onready var bird_button: Button = $MarginContainer/VBoxContainer/PersonsContainer/BirdButton
 @onready var ushastic: Node2D = $MarginContainer/VBoxContainer/PersonsContainer/UshasticContainer/Ushastic
+@onready var repeat_button: Button = $MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/RepeatButton
 
 
 var bird_sounds: Array[AudioStream] = [] 
@@ -18,6 +19,7 @@ var character_queue: Array[String] = [] # Очередь персонажей ("
 var last_character: String = ""         # Кто был в прошлый раз
 var repeat_count: int = 0               # Сколько раз подряд он уже выпал
 var current_target: String = ""         # Кого сейчас загадали (для проверки ответа)
+var last_animal_sound: AudioStream = null # Хранит самый последний звук птички или мишки
 
 
 const COLOR_LOCKED = Color(0.513, 0.544, 0.746, 1.0) 
@@ -27,7 +29,8 @@ func _ready():
 	start_button.pressed.connect(_on_start_button_pressed)
 	bird_button.pressed.connect(_on_bird_button_pressed)
 	bear_button.pressed.connect(_on_bear_button_pressed)
-
+	repeat_button.pressed.connect(_on_repeat_button_pressed)
+	
 	set_button_lock_state(bear_button, true)
 	set_button_lock_state(bird_button, true)
 	
@@ -53,13 +56,15 @@ func play_ushastik_voice(file_name: String):
 
 # Птичка поет случайную песню (и ждет окончания)
 func play_random_bird_sound():
-	voice_player.stream = get_random_bird_sound()
+	last_animal_sound = get_random_bird_sound()
+	voice_player.stream = last_animal_sound
 	voice_player.play()
 	await voice_player.finished
 	
 # Мишка поет случайную песню (и ждет окончания)
 func play_random_bear_sound():
-	voice_player.stream = get_random_bear_sound()
+	last_animal_sound = get_random_bear_sound()
+	voice_player.stream = last_animal_sound
 	voice_player.play()
 	await voice_player.finished
 
@@ -172,9 +177,10 @@ func _on_bear_button_pressed():
 func _on_task_button():
 	#Ушастик дает задание 
 	await play_ushastik_voice("4Ru.mp3")
-	# Разблокируем Мишку и Птичку для ребенка
-	#set_button_lock_state(bear_button, false)
-	#set_button_lock_state(bird_button, false)
+	
+func _on_repeat_button_pressed():
+	# Повторяем самый последний звук птички или мишки
+	await repeat_last_sound()	
 	
 func guess_sound():
 	# Пока звук загадывается, блокируем кнопки, чтобы ребенок не нажал раньше времени
@@ -254,8 +260,10 @@ func check_answer(chosen_character: String):
 		await play_ushastik_voice("failRu.mp3")
 		
 		await pause_between_replica()
+		# Повторяем самый последний звук птички или мишки
+		await repeat_last_sound()
 		# Разблокируем кнопки снова, чтобы ребенок попробовал ответить еще раз
-		# (или заново проиграйте загаданный звук)
+		
 		set_button_lock_state(bear_button, false)
 		set_button_lock_state(bird_button, false)
 
@@ -268,3 +276,10 @@ func jump_ushastic():
 	# Мягко приземляется обратно за 0.18 сек
 	tween.tween_property(ushastic, "position:y", start_y, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	await tween.finished
+
+# Повторяет самый последний прозвучавший звук птички или мишки
+func repeat_last_sound():
+	if last_animal_sound != null:
+		voice_player.stream = last_animal_sound
+		voice_player.play()
+		await voice_player.finished

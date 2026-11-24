@@ -28,6 +28,7 @@ func start_breathing_animation():
 func play_fail():
 	# Запускаем анимацию 
 	await play_fail_times(2)
+	anim.play("walk") # Возвращаем обычную анимацию после ошибки
 
 # Универсальная функция для повтора анимации нужное количество раз
 func play_fail_times(count: int):
