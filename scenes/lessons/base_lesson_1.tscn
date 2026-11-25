@@ -13,7 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://b48402ysf03wt" path="res://assets/tree/tree.png" id="11_ksr2p"]
 [ext_resource type="PackedScene" uid="uid://bwsnq405ou84a" path="res://scenes/bird.tscn" id="12_om0ou"]
 [ext_resource type="PackedScene" uid="uid://c22hmqx4vvvyk" path="res://scenes/custom_buttom.tscn" id="13_6o5ym"]
-[ext_resource type="AudioStream" uid="uid://bfk35dtm25dtx" path="res://assets/sounds/lesson1/bump.mp3" id="14_fq4i3"]
+[ext_resource type="AudioStream" uid="uid://ca0wefgfi07ql" path="res://assets/sounds/lesson1/bump.mp3" id="14_fq4i3"]
+[ext_resource type="Texture2D" uid="uid://bj6uegomn2j5o" path="res://assets/icon/star.png" id="15_30j8s"]
+[ext_resource type="AudioStream" uid="uid://bp7vmndxm2ld5" path="res://assets/sounds/lesson1/victory.mp3" id="16_1j42j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjhke"]
 bg_color = Color(0.96862745, 0.9607843, 0.92156863, 1)
@@ -312,3 +314,26 @@ text = "START"
 
 [node name="SfxPlayer" type="AudioStreamPlayer" parent="." unique_id=909068424]
 stream = ExtResource("14_fq4i3")
+
+[node name="ConfettiParticles" type="CPUParticles2D" parent="." unique_id=1724210641]
+position = Vector2(960, 136)
+amount = 100
+texture = ExtResource("15_30j8s")
+lifetime = 6.8
+one_shot = true
+explosiveness = 1.0
+randomness = 0.2
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 52.64
+initial_velocity_max = 146.98
+angular_velocity_min = 475.47
+angular_velocity_max = 475.47
+scale_amount_min = 0.5
+color = Color(1, 0.019607844, 1, 1)
+hue_variation_min = 0.5
+hue_variation_max = 1.0
+
+[node name="Victory" type="AudioStreamPlayer" parent="." unique_id=892330352]
+stream = ExtResource("16_1j42j")

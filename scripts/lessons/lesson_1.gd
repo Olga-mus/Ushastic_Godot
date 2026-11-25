@@ -86,6 +86,9 @@ func _ready():
 	tail_two.modulate = TAIL_EMPTY_COLOR
 	body_three.modulate = BODY_EMPTY_COLOR
 	tail_three.modulate = TAIL_EMPTY_COLOR
+	
+	# ⭐ Выключаем салют при старте (на всякий случай)
+	$ConfettiParticles.emitting = false
 
 # ============================================================
 # ⭐ ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
@@ -323,6 +326,7 @@ func check_answer(chosen_character: String):
 		# Проверяем, не собрал ли ребенок все 3 морковки (Победа)
 		if carrots_collected >= MAX_CARROWS:
 			print("УРОК ПРОЙДЕН! Все морковки собраны!")
+			trigger_victory() # ⭐ ВЫЗЫВАЕМ ПРАЗДНИК
 			# Здесь можно добавить переход на карту:
 			# get_tree().change_scene_to_file("res://scenes/WorldMap.tscn")
 		else:
@@ -342,3 +346,32 @@ func check_answer(chosen_character: String):
 		# Разблокируем кнопки для новой попытки
 		set_button_lock_state(bear_button, false)
 		set_button_lock_state(bird_button, false)
+
+# ⭐ ФУНКЦИЯ ПРАЗДНИКА (Победа)
+func trigger_victory():
+	print("УРОК ПРОЙДЕН! Праздник начался!")
+	
+	# 1. Блокируем кнопки, чтобы ребенок не нажал на них во время салюта
+	set_button_lock_state(bear_button, true)
+	set_button_lock_state(bird_button, true)
+	
+	# 2. Запускаем салют (частицы)
+	$ConfettiParticles.emitting = true
+	
+	# 3. Ушастик радуется (прыгает)
+	ushastic.jump_ushastic()
+	
+	# 4. Играем звук победы (фанфары или голос)
+	$Victory.play()
+	
+	# Ждем, пока звук победы доиграет
+	await $Victory.finished
+	await pause_between_replica() # Небольшая пауза
+	
+	# 5. Ушастик говорит финальную фразу (например: "Ура! Ты прошел урок!")
+	await play_ushastik_voice("colorRu.mp3")
+	
+	# 6. Показываем кнопку "Домой" или "Далее"
+	# (Убедитесь, что эта кнопка уже есть в вашей сцене и вы ее спрятали в _ready())
+	# $HomeButton.show() 
+	
