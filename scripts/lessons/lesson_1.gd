@@ -49,7 +49,7 @@ const MAX_CARROWS: int = 3
 # ⭐ КОНСТАНТЫ ЦВЕТОВ
 # ============================================================
 # Цвета для блокировки кнопок
-const COLOR_LOCKED = Color(0.513, 0.544, 0.746, 1.0) # Синевато-серый
+const COLOR_LOCKED = Color(0.484, 0.541, 0.808, 1.0) # Синевато-серый
 const COLOR_NORMAL = Color(1, 1, 1)                   # Оригинальный цвет
 
 # Цвета для морковок (работают, если исходные картинки в Figma белые)
@@ -215,6 +215,18 @@ func _on_bird_button_pressed():
 	elif lesson_stage == 1:
 		await check_answer("bird")
 		
+		# ЭТАП 2: Свободный режим (птичка снова поет при клике)
+	elif lesson_stage == 2:
+		if not voice_player.playing:
+			set_button_lock_state(bird_button, true)
+			set_button_lock_state(bear_button, true)
+			
+			bird_button.get_node("Bird").play_swing()
+			await play_random_bird_sound()
+			
+			set_button_lock_state(bird_button, false)
+			set_button_lock_state(bear_button, false)
+		
 func _on_bear_button_pressed():
 	# ЭТАП 0: Ребенок нажимает на мишку для знакомства
 	if lesson_stage == 0:
@@ -233,6 +245,18 @@ func _on_bear_button_pressed():
 	# ЭТАП 1: Ребенок дает ОТВЕТ в викторине
 	elif lesson_stage == 1:
 		await check_answer("bear")
+		
+	# ЭТАП 2: Свободный режим (мишка снова поет при клике)
+	elif lesson_stage == 2:
+		if not voice_player.playing:
+			set_button_lock_state(bird_button, true)
+			set_button_lock_state(bear_button, true)
+			
+			bear_button.get_node("Bear").play_rotation()
+			await play_random_bear_sound()
+			
+			set_button_lock_state(bird_button, false)
+			set_button_lock_state(bear_button, false)
 
 # Ушастик объясняет суть задания
 func _on_task_button():
@@ -320,7 +344,7 @@ func check_answer(chosen_character: String):
 		
 		ushastic.jump_ushastic() # Ушастик прыгает от радости
 		await play_ushastik_voice("successRu.mp3")
-		await color_next_carrot() # Закрашиваем морковку
+		color_next_carrot() # Закрашиваем морковку
 		await pause_between_replica()
 		
 		# Проверяем, не собрал ли ребенок все 3 морковки (Победа)
@@ -369,9 +393,15 @@ func trigger_victory():
 	await pause_between_replica() # Небольшая пауза
 	
 	# 5. Ушастик говорит финальную фразу (например: "Ура! Ты прошел урок!")
-	await play_ushastik_voice("colorRu.mp3")
+	await play_ushastik_voice("hoorayRu.mp3")
 	
-	# 6. Показываем кнопку "Домой" или "Далее"
-	# (Убедитесь, что эта кнопка уже есть в вашей сцене и вы ее спрятали в _ready())
-	# $HomeButton.show() 
+	# 6. Переключаем урок в свободный режим и запускаем его
+	lesson_stage = 2
+	await free_mode()
+	
+func free_mode():
+	await play_ushastik_voice("freeRu.mp3")
+	#разблокируем кнопки
+	set_button_lock_state(bear_button, false)
+	set_button_lock_state(bird_button, false)
 	
