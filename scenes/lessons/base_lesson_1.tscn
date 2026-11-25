@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://b48402ysf03wt" path="res://assets/tree/tree.png" id="11_ksr2p"]
 [ext_resource type="PackedScene" uid="uid://bwsnq405ou84a" path="res://scenes/bird.tscn" id="12_om0ou"]
 [ext_resource type="PackedScene" uid="uid://c22hmqx4vvvyk" path="res://scenes/custom_buttom.tscn" id="13_6o5ym"]
+[ext_resource type="AudioStream" uid="uid://bfk35dtm25dtx" path="res://assets/sounds/lesson1/bump.mp3" id="14_fq4i3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjhke"]
 bg_color = Color(0.96862745, 0.9607843, 0.92156863, 1)
@@ -308,3 +309,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "START"
+
+[node name="SfxPlayer" type="AudioStreamPlayer" parent="." unique_id=909068424]
+stream = ExtResource("14_fq4i3")

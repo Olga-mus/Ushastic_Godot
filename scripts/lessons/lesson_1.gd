@@ -160,6 +160,7 @@ func color_next_carrot():
 	
 # ⭐ Функция для эффекта "Пружинки" (Pop effect)
 func animate_carrot_pop(carrot_node: Control):
+	$SfxPlayer.play() # ⭐ Играем звук "Дзынь"
 	# Обязательно ставим точку масштабирования в центр морковки, 
 	# иначе она будет расти вправо-вниз
 	carrot_node.pivot_offset = carrot_node.size / 2
@@ -314,10 +315,9 @@ func check_answer(chosen_character: String):
 	if chosen_character == current_target:
 		print("ВЕРНО! Угадал: ", chosen_character)
 		
-		color_next_carrot() # Закрашиваем морковку
-		
 		ushastic.jump_ushastic() # Ушастик прыгает от радости
 		await play_ushastik_voice("successRu.mp3")
+		await color_next_carrot() # Закрашиваем морковку
 		await pause_between_replica()
 		
 		# Проверяем, не собрал ли ребенок все 3 морковки (Победа)
