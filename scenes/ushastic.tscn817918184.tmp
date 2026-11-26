@@ -1,0 +1,191 @@
+[gd_scene format=3 uid="uid://dw8tfoual2p0c"]
+
+[ext_resource type="Script" uid="uid://mp2xfpt5to7e" path="res://scripts/ushastic.gd" id="1_g7nnv"]
+[ext_resource type="Texture2D" uid="uid://dfsh4cptj108p" path="res://assets/ushastic/ears.png" id="2_s4w1i"]
+[ext_resource type="Texture2D" uid="uid://qrehkv4dqjvk" path="res://assets/ushastic/body.png" id="4_g7nnv"]
+[ext_resource type="Texture2D" uid="uid://b8v27mdhixqch" path="res://assets/ushastic/hand_left.png" id="6_2kxoa"]
+[ext_resource type="Texture2D" uid="uid://dhuuppags6pcj" path="res://assets/ushastic/hand_right.png" id="7_sebdp"]
+[ext_resource type="PackedScene" uid="uid://dtcjh6i5sdxnr" path="res://scenes/parts/eyes.tscn" id="9_yrqcf"]
+[ext_resource type="Texture2D" uid="uid://6btfech8xrn2" path="res://assets/ushastic/mouth_happy.png" id="10_254u6"]
+[ext_resource type="Texture2D" uid="uid://dhgl1fmpdanm3" path="res://assets/ushastic/leg_right.png" id="11_2kxoa"]
+[ext_resource type="Texture2D" uid="uid://ccxgthdhxp8ol" path="res://assets/ushastic/leg_left.png" id="11_6qlhx"]
+
+[sub_resource type="Animation" id="Animation_2kxoa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LegLeft:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LegRight:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -16)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../HandLeft:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../HandRight:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_kqveu"]
+resource_name = "fail"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HandLeft:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.20943952, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../HandRight:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.20943952, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_qgajw"]
+resource_name = "jump"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19, 0.69),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -100), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sebdp"]
+resource_name = "walk"
+length = 2.0333333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LegLeft:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.0333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -16), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LegRight:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8666667, 1.4333333, 2.3333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -16), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3kee8"]
+_data = {
+&"RESET": SubResource("Animation_2kxoa"),
+&"fail": SubResource("Animation_kqveu"),
+&"jump": SubResource("Animation_qgajw"),
+&"walk": SubResource("Animation_sebdp")
+}
+
+[node name="Ushastic" type="Node2D" unique_id=1536299866]
+script = ExtResource("1_g7nnv")
+
+[node name="HandLeft" type="Sprite2D" parent="." unique_id=486497740]
+texture = ExtResource("6_2kxoa")
+
+[node name="Ears" type="Sprite2D" parent="." unique_id=921481338]
+texture = ExtResource("2_s4w1i")
+
+[node name="HandRight" type="Sprite2D" parent="." unique_id=674127368]
+scale = Vector2(0.9244898, 0.97762483)
+texture = ExtResource("7_sebdp")
+
+[node name="Body" type="Sprite2D" parent="." unique_id=88141754]
+texture = ExtResource("4_g7nnv")
+
+[node name="MouthHappy" type="Sprite2D" parent="." unique_id=966376399]
+texture = ExtResource("10_254u6")
+
+[node name="Legs" type="Node2D" parent="." unique_id=244657698]
+
+[node name="LegLeft" type="Sprite2D" parent="Legs" unique_id=1783971444]
+texture = ExtResource("11_6qlhx")
+
+[node name="LegRight" type="Sprite2D" parent="Legs" unique_id=133058121]
+position = Vector2(0, -16)
+texture = ExtResource("11_2kxoa")
+
+[node name="Eyes" parent="." unique_id=1035785474 instance=ExtResource("9_yrqcf")]
+eyelid_color = Color(0.8745098, 0.6, 0.26666668, 1)
+blink_interval_min = 0.5
+blink_interval_max = 2.0
+
+[node name="Walk" type="AnimationPlayer" parent="." unique_id=595229882]
+root_node = NodePath("../Legs")
+libraries/ = SubResource("AnimationLibrary_3kee8")

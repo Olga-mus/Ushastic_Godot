@@ -1,5 +1,4 @@
 extends HBoxContainer
-
 @onready var bear_button: Button = $BearButton
 @onready var bird_button: Button = $BirdButton
 @onready var repeat_button: Button = $"../PanelContainer/HBoxContainer/RepeatButton"
@@ -7,6 +6,7 @@ extends HBoxContainer
 @onready var task_button: Button = $"../../CustomButtom"
 
 func _ready() -> void:
+	# Проверяем, нашлись ли кнопки
 	# 1. НАСТРОЙКА БОЛЬШИХ КНОПОК-ПЕРСОНАЖЕЙ (Размер 500х500, центр 250х250)
 	for btn in [bear_button, bird_button]:
 		btn.custom_minimum_size = Vector2(500, 500)

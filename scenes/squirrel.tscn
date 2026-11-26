@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://cdnqknyfmetei"]
+
+[ext_resource type="Texture2D" uid="uid://btw3s5iin10nc" path="res://assets/squirrel/squirrel_tail.png" id="1_m3xcr"]
+[ext_resource type="Texture2D" uid="uid://bovhbkl4js2s3" path="res://assets/squirrel/squirrel.png" id="2_cbpea"]
+
+[sub_resource type="Animation" id="Animation_m3xcr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SquirrelTail:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_cbpea"]
+resource_name = "wag"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SquirrelTail:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.09250245, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6jtqv"]
+_data = {
+&"RESET": SubResource("Animation_m3xcr"),
+&"wag": SubResource("Animation_cbpea")
+}
+
+[node name="Squirrel" type="Node2D" unique_id=1463011291]
+metadata/_edit_group_ = true
+
+[node name="SquirrelTail" type="Sprite2D" parent="." unique_id=705761620]
+position = Vector2(57, -43)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_m3xcr")
+
+[node name="Squirrel" type="Sprite2D" parent="." unique_id=1407440795]
+position = Vector2(-12, -4)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_cbpea")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=180711489]
+libraries/ = SubResource("AnimationLibrary_6jtqv")

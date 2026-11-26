@@ -8,8 +8,8 @@ extends Control
 @onready var bear_button: Button = $MarginContainer/VBoxContainer/PersonsContainer/BearButton
 @onready var bird_button: Button = $MarginContainer/VBoxContainer/PersonsContainer/BirdButton
 @onready var ushastic: Node2D = $MarginContainer/VBoxContainer/PersonsContainer/UshasticContainer/Ushastic
-@onready var repeat_button: Button = $MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/RepeatButton
 
+@onready var repeat_button: Button = $MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/RepeatButton
 # Ссылки на части морковок для прогресс-бара
 @onready var body_one: TextureRect = $MarginContainer/VBoxContainer/PanelContainer/CarrotContainer/HBoxContainer/Carrot1/body
 @onready var tail_one: TextureRect = $MarginContainer/VBoxContainer/PanelContainer/CarrotContainer/HBoxContainer/Carrot1/tail
@@ -62,6 +62,7 @@ const TAIL_FILLED_COLOR = Color(0.2, 0.8, 0.2, 1.0)  # Яркий зеленый
 # ⭐ ИНИЦИАЛИЗАЦИЯ
 # ============================================================
 func _ready():
+	
 	# Подключаем сигналы кнопок к функциям
 	start_button.pressed.connect(_on_start_button_pressed)
 	bird_button.pressed.connect(_on_bird_button_pressed)
@@ -89,6 +90,7 @@ func _ready():
 	
 	# ⭐ Выключаем салют при старте (на всякий случай)
 	$ConfettiParticles.emitting = false
+	#ushastic.get_node("Eyes")
 
 # ============================================================
 # ⭐ ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
@@ -102,6 +104,7 @@ func play_ushastik_voice(file_name: String):
 
 # Воспроизводит случайный звук птички и запоминает его
 func play_random_bird_sound():
+	
 	last_animal_sound = get_random_bird_sound()
 	voice_player.stream = last_animal_sound
 	voice_player.play()
@@ -188,8 +191,12 @@ func _on_start_button_pressed():
 	if lesson_stage == 0:
 		await play_ushastik_voice("1Ru.mp3")
 		await pause_between_replica()
+		# ⭐ Ушастик смотрит направо, пока поет птичка
+		ushastic.get_node("Eyes").look_right()
 		await play_ushastik_voice("2Ru.mp3")
 		await play_random_bird_sound() # Демонстрация: поет птичка
+		# ⭐ Возвращаем взгляд в центр
+		ushastic.get_node("Eyes").look_center()
 		set_button_lock_state(bird_button, false) # Разблокируем птичку
 		
 	# ЭТАП 1: Задание
@@ -205,10 +212,18 @@ func _on_bird_button_pressed():
 		if not voice_player.playing:
 			set_button_lock_state(bird_button, true)
 			bird_button.get_node("Bird").play_swing()
+			# ⭐ Ушастик смотрит направо, пока поет птичка
+			ushastic.get_node("Eyes").look_right()
 			await play_random_bird_sound()
+			# ⭐ Возвращаем взгляд в центр
+			ushastic.get_node("Eyes").look_center()
 			await pause_between_replica()
+			# ⭐ Ушастик смотрит налево, пока поет мишка
+			ushastic.get_node("Eyes").look_left()
 			await play_ushastik_voice("3Ru.mp3")
 			await play_random_bear_sound() # Демонстрация: поет мишка
+			# ⭐ Возвращаем взгляд в центр
+			ushastic.get_node("Eyes").look_center()
 			set_button_lock_state(bear_button, false) # Разблокируем мишку
 			
 	# ЭТАП 1: Ребенок дает ОТВЕТ в викторине
@@ -234,7 +249,11 @@ func _on_bear_button_pressed():
 		if not voice_player.playing:
 			set_button_lock_state(bear_button, true)
 			bear_button.get_node("Bear").play_rotation()
+			# ⭐ Ушастик смотрит направо, пока поет птичка
+			ushastic.get_node("Eyes").look_left()
 			await play_random_bear_sound()
+			# ⭐ Возвращаем взгляд в центр
+			ushastic.get_node("Eyes").look_center()
 			await pause_between_replica()
 			
 			# Переходим к заданию
@@ -405,3 +424,16 @@ func free_mode():
 	set_button_lock_state(bear_button, false)
 	set_button_lock_state(bird_button, false)
 	
+
+# ⭐ ТЕСТ: Нажми W, чтобы Ушастик посмотрел в центр
+func _unhandled_input(event):
+	if event is InputEventKey and event.pressed and event.keycode == KEY_W:
+		# Обращаемся к глазам ТОЛЬКО внутри Ушастика
+		ushastic.get_node("Eyes").look_left()
+	if event is InputEventKey and event.pressed and event.keycode == KEY_E:
+		# Обращаемся к глазам ТОЛЬКО внутри Ушастика
+		ushastic.get_node("Eyes").look_center()
+	if event is InputEventKey and event.pressed and event.keycode == KEY_R:
+		# Обращаемся к глазам ТОЛЬКО внутри Ушастика
+		ushastic.get_node("Eyes").look_right()
+		

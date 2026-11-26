@@ -49,3 +49,4 @@ func play_fail_times(count: int):
 	for i in range(count):
 		anim.play("fail")
 		await anim.animation_finished
+		

@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://ophmacswy7hc"]
+
+[ext_resource type="Texture2D" uid="uid://clkoes0hgbyih" path="res://assets/elk/elk.png" id="1_i1j8t"]
+[ext_resource type="Texture2D" uid="uid://bhpxktmaohvn" path="res://assets/elk/grass.png" id="1_uawct"]
+[ext_resource type="Texture2D" uid="uid://cs73s0vsqq0in" path="res://assets/elk/horn_left.png" id="2_swf3u"]
+[ext_resource type="PackedScene" uid="uid://dtcjh6i5sdxnr" path="res://scenes/parts/eyes.tscn" id="2_xpt62"]
+[ext_resource type="Texture2D" uid="uid://c2m8jheunpqye" path="res://assets/elk/horn_right.png" id="3_en4tb"]
+
+[sub_resource type="Animation" id="Animation_r7jk3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HornLeft:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HornRight:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_q7uys"]
+resource_name = "shake"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HornLeft:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.27750736, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HornRight:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.27750736, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qa1ue"]
+_data = {
+&"RESET": SubResource("Animation_r7jk3"),
+&"shake": SubResource("Animation_q7uys")
+}
+
+[node name="Elk" type="Node2D" unique_id=957173370]
+metadata/_edit_group_ = true
+
+[node name="Grass" type="Sprite2D" parent="." unique_id=691216352]
+position = Vector2(5, -77)
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("1_uawct")
+
+[node name="HornLeft" type="Sprite2D" parent="." unique_id=1741717191]
+position = Vector2(90, -100)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_swf3u")
+
+[node name="HornRight" type="Sprite2D" parent="." unique_id=1778110263]
+position = Vector2(-80, -97)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_en4tb")
+
+[node name="Elk" type="Sprite2D" parent="." unique_id=783224717]
+position = Vector2(0, -8)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_i1j8t")
+
+[node name="Eyes" parent="." unique_id=1035785474 instance=ExtResource("2_xpt62")]
+position = Vector2(-2, -63.000004)
+scale = Vector2(0.45, 0.45)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1414390327]
+libraries/ = SubResource("AnimationLibrary_qa1ue")

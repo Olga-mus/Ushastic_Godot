@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://c3stglpb06yl1"]
+
+[ext_resource type="PackedScene" uid="uid://ur4hggi5nsam" path="res://scenes/lessons/base_lesson_1.tscn" id="1_a4wt1"]
+[ext_resource type="Texture2D" uid="uid://cnqyss8ccuvqc" path="res://assets/hole/hole.png" id="2_erkgs"]
+[ext_resource type="PackedScene" uid="uid://bu5cdwrplh4ji" path="res://scenes/wolf.tscn" id="3_erkgs"]
+[ext_resource type="PackedScene" uid="uid://ds5hg7dqwa0bx" path="res://scenes/fox.tscn" id="3_m1qlk"]
+[ext_resource type="Texture2D" uid="uid://b48402ysf03wt" path="res://assets/tree/tree.png" id="4_3i58s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ut6ft"]
+bg_color = Color(0.2901961, 0.654902, 0.75686276, 0.21568628)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.62352943, 0.84705883, 0.85882354, 0.5529412)
+corner_radius_top_left = 250
+corner_radius_top_right = 250
+corner_radius_bottom_right = 250
+corner_radius_bottom_left = 250
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0q20i"]
+bg_color = Color(0.23921569, 0.5411765, 0.8745098, 0.26666668)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.21960784, 0.6901961, 0.8784314, 0.18039216)
+corner_radius_top_left = 250
+corner_radius_top_right = 250
+corner_radius_bottom_right = 250
+corner_radius_bottom_left = 250
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3po83"]
+bg_color = Color(0.2901961, 0.654902, 0.75686276, 0.21568628)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.62352943, 0.84705883, 0.85882354, 0.5529412)
+corner_radius_top_left = 250
+corner_radius_top_right = 250
+corner_radius_bottom_right = 250
+corner_radius_bottom_left = 250
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x63s8"]
+bg_color = Color(0.23921569, 0.5411765, 0.8745098, 0.26666668)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.21960784, 0.6901961, 0.8784314, 0.18039216)
+corner_radius_top_left = 250
+corner_radius_top_right = 250
+corner_radius_bottom_right = 250
+corner_radius_bottom_left = 250
+
+[node name="Lesson1" unique_id=1921475603 instance=ExtResource("1_a4wt1")]
+
+[node name="FoxButton" type="Button" parent="MarginContainer/VBoxContainer/PersonsContainer" parent_id_path=PackedInt32Array(1618720116) index="0" unique_id=1343550809]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_ut6ft")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_0q20i")
+
+[node name="hole" type="TextureRect" parent="MarginContainer/VBoxContainer/PersonsContainer/FoxButton" index="0" unique_id=159584039]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -38.0
+offset_right = -30.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.1, 1.1)
+mouse_filter = 2
+texture = ExtResource("2_erkgs")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Fox" parent="MarginContainer/VBoxContainer/PersonsContainer/FoxButton" index="1" unique_id=1956578970 instance=ExtResource("3_m1qlk")]
+position = Vector2(196, 268)
+scale = Vector2(1.3, 1.3)
+
+[node name="WolfButton" type="Button" parent="MarginContainer/VBoxContainer/PersonsContainer" parent_id_path=PackedInt32Array(1618720116) index="2" unique_id=2014996221]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_3po83")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_x63s8")
+
+[node name="tree" type="TextureRect" parent="MarginContainer/VBoxContainer/PersonsContainer/WolfButton" index="0" unique_id=2130472027]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -22.0
+offset_top = 2.0
+offset_right = -22.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("4_3i58s")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Wolf" parent="MarginContainer/VBoxContainer/PersonsContainer/WolfButton" index="1" unique_id=221557134 instance=ExtResource("3_erkgs")]
+position = Vector2(216, 284)
+scale = Vector2(1.3, 1.3)

@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://ds5hg7dqwa0bx"]
+
+[ext_resource type="Texture2D" uid="uid://cc2cbms6nnbrq" path="res://assets/fox/fox_tail.png" id="1_3u0el"]
+[ext_resource type="Texture2D" uid="uid://xsghvefl6ihi" path="res://assets/fox/fox.png" id="1_q320a"]
+[ext_resource type="Texture2D" uid="uid://h8vg0ja1a2mq" path="res://assets/fox/fox_ear_left.png" id="2_brrv0"]
+[ext_resource type="Texture2D" uid="uid://cd0pv55aj4q1a" path="res://assets/fox/fox_ear_right.png" id="3_2g4xt"]
+[ext_resource type="PackedScene" uid="uid://dtcjh6i5sdxnr" path="res://scenes/parts/eyes.tscn" id="5_brrv0"]
+
+[sub_resource type="Animation" id="Animation_2g4xt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FoxTail:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FoxEarLeft:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FoxEarRight:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_m5q2l"]
+resource_name = "shake"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FoxTail:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.59000003, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.27750736, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FoxEarLeft:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.27750736, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FoxEarRight:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.27750736, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0ael4"]
+_data = {
+&"RESET": SubResource("Animation_2g4xt"),
+&"shake": SubResource("Animation_m5q2l")
+}
+
+[node name="Fox" type="Node2D" unique_id=1956578970]
+metadata/_edit_group_ = true
+
+[node name="FoxTail" type="Sprite2D" parent="." unique_id=1907014532]
+position = Vector2(120, -63.999996)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_3u0el")
+
+[node name="FoxEarLeft" type="Sprite2D" parent="." unique_id=24657486]
+position = Vector2(64, -95)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_brrv0")
+
+[node name="FoxEarRight" type="Sprite2D" parent="." unique_id=1564456986]
+position = Vector2(-55.999996, -96)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_2g4xt")
+
+[node name="Fox" type="Sprite2D" parent="." unique_id=2025708187]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_q320a")
+
+[node name="Eyes" parent="." unique_id=1035785474 instance=ExtResource("5_brrv0")]
+position = Vector2(-2, -76)
+scale = Vector2(0.75, 0.75)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=727509764]
+libraries/ = SubResource("AnimationLibrary_0ael4")

@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://co4k6qav4iukt"]
+
+[ext_resource type="PackedScene" uid="uid://ur4hggi5nsam" path="res://scenes/lessons/base_lesson_1.tscn" id="1_enskc"]
+[ext_resource type="PackedScene" uid="uid://cdnqknyfmetei" path="res://scenes/squirrel.tscn" id="2_5ermm"]
+[ext_resource type="Texture2D" uid="uid://cnqyss8ccuvqc" path="res://assets/hole/hole.png" id="2_rmbpg"]
+[ext_resource type="Texture2D" uid="uid://b48402ysf03wt" path="res://assets/tree/tree.png" id="3_82bn4"]
+[ext_resource type="PackedScene" uid="uid://ophmacswy7hc" path="res://scenes/elk.tscn" id="3_elqmf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ut6ft"]
+bg_color = Color(0.2901961, 0.654902, 0.75686276, 0.21568628)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.62352943, 0.84705883, 0.85882354, 0.5529412)
+corner_radius_top_left = 250
+corner_radius_top_right = 250
+corner_radius_bottom_right = 250
+corner_radius_bottom_left = 250
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0q20i"]
+bg_color = Color(0.23921569, 0.5411765, 0.8745098, 0.26666668)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.21960784, 0.6901961, 0.8784314, 0.18039216)
+corner_radius_top_left = 250
+corner_radius_top_right = 250
+corner_radius_bottom_right = 250
+corner_radius_bottom_left = 250
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3po83"]
+bg_color = Color(0.2901961, 0.654902, 0.75686276, 0.21568628)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.62352943, 0.84705883, 0.85882354, 0.5529412)
+corner_radius_top_left = 250
+corner_radius_top_right = 250
+corner_radius_bottom_right = 250
+corner_radius_bottom_left = 250
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x63s8"]
+bg_color = Color(0.23921569, 0.5411765, 0.8745098, 0.26666668)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.21960784, 0.6901961, 0.8784314, 0.18039216)
+corner_radius_top_left = 250
+corner_radius_top_right = 250
+corner_radius_bottom_right = 250
+corner_radius_bottom_left = 250
+
+[node name="Lesson1" unique_id=1921475603 instance=ExtResource("1_enskc")]
+
+[node name="ElkButton" type="Button" parent="MarginContainer/VBoxContainer/PersonsContainer" parent_id_path=PackedInt32Array(1618720116) index="0" unique_id=1824589237]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_ut6ft")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_0q20i")
+
+[node name="hole" type="TextureRect" parent="MarginContainer/VBoxContainer/PersonsContainer/ElkButton" index="0" unique_id=554029190]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -38.0
+offset_right = -30.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.1, 1.1)
+mouse_filter = 2
+texture = ExtResource("2_rmbpg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Elk" parent="MarginContainer/VBoxContainer/PersonsContainer/ElkButton" index="1" unique_id=957173370 instance=ExtResource("3_elqmf")]
+position = Vector2(204, 284)
+scale = Vector2(1.5, 1.5)
+
+[node name="SquirrelButton" type="Button" parent="MarginContainer/VBoxContainer/PersonsContainer" parent_id_path=PackedInt32Array(1618720116) index="2" unique_id=89786136]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_3po83")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_x63s8")
+
+[node name="tree" type="TextureRect" parent="MarginContainer/VBoxContainer/PersonsContainer/SquirrelButton" index="0" unique_id=1226312242]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -22.0
+offset_top = 2.0
+offset_right = -22.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("3_82bn4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Squirrel" parent="MarginContainer/VBoxContainer/PersonsContainer/SquirrelButton" index="1" unique_id=1463011291 instance=ExtResource("2_5ermm")]
+position = Vector2(160, 68)

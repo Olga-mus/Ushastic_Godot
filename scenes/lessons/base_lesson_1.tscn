@@ -6,12 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://72iuk7o5x8g7" path="res://scenes/lessons/repeat_button.tscn" id="4_1j42j"]
 [ext_resource type="PackedScene" uid="uid://dm3okyglt34e4" path="res://scenes/lessons/home_button.tscn" id="5_d4o4t"]
 [ext_resource type="Script" uid="uid://cgcdida13snbj" path="res://scenes/lessons/persons_container.gd" id="6_f3pws"]
-[ext_resource type="Texture2D" uid="uid://cnqyss8ccuvqc" path="res://assets/hole/hole.png" id="7_5f1wa"]
-[ext_resource type="PackedScene" uid="uid://iiwtbuekp2e1" path="res://scenes/bear.tscn" id="8_vy7nl"]
 [ext_resource type="Script" uid="uid://di23ekpylcy6x" path="res://scripts/lessons/control.gd" id="9_v3c4y"]
 [ext_resource type="PackedScene" uid="uid://dw8tfoual2p0c" path="res://scenes/ushastic.tscn" id="10_vst4d"]
-[ext_resource type="Texture2D" uid="uid://b48402ysf03wt" path="res://assets/tree/tree.png" id="11_ksr2p"]
-[ext_resource type="PackedScene" uid="uid://bwsnq405ou84a" path="res://scenes/bird.tscn" id="12_om0ou"]
 [ext_resource type="PackedScene" uid="uid://c22hmqx4vvvyk" path="res://scenes/custom_buttom.tscn" id="13_6o5ym"]
 [ext_resource type="AudioStream" uid="uid://ca0wefgfi07ql" path="res://assets/sounds/lesson1/bump.mp3" id="14_fq4i3"]
 [ext_resource type="Texture2D" uid="uid://bj6uegomn2j5o" path="res://assets/icon/star.png" id="15_30j8s"]
@@ -61,54 +57,6 @@ corner_radius_bottom_left = 100
 shadow_color = Color(0, 0, 0, 0.27450982)
 shadow_size = 3
 shadow_offset = Vector2(0, 4)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ut6ft"]
-bg_color = Color(0.2901961, 0.654902, 0.75686276, 0.21568628)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.62352943, 0.84705883, 0.85882354, 0.5529412)
-corner_radius_top_left = 250
-corner_radius_top_right = 250
-corner_radius_bottom_right = 250
-corner_radius_bottom_left = 250
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0q20i"]
-bg_color = Color(0.23921569, 0.5411765, 0.8745098, 0.26666668)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.21960784, 0.6901961, 0.8784314, 0.18039216)
-corner_radius_top_left = 250
-corner_radius_top_right = 250
-corner_radius_bottom_right = 250
-corner_radius_bottom_left = 250
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3po83"]
-bg_color = Color(0.2901961, 0.654902, 0.75686276, 0.21568628)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.62352943, 0.84705883, 0.85882354, 0.5529412)
-corner_radius_top_left = 250
-corner_radius_top_right = 250
-corner_radius_bottom_right = 250
-corner_radius_bottom_left = 250
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x63s8"]
-bg_color = Color(0.23921569, 0.5411765, 0.8745098, 0.26666668)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.21960784, 0.6901961, 0.8784314, 0.18039216)
-corner_radius_top_left = 250
-corner_radius_top_right = 250
-corner_radius_bottom_right = 250
-corner_radius_bottom_left = 250
 
 [node name="Lesson1" type="Control" unique_id=1921475603]
 layout_mode = 3
@@ -239,35 +187,6 @@ theme_override_constants/separation = -86
 alignment = 1
 script = ExtResource("6_f3pws")
 
-[node name="BearButton" type="Button" parent="MarginContainer/VBoxContainer/PersonsContainer" unique_id=672029996]
-custom_minimum_size = Vector2(500, 500)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_ut6ft")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_0q20i")
-
-[node name="hole" type="TextureRect" parent="MarginContainer/VBoxContainer/PersonsContainer/BearButton" unique_id=177608363]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -30.0
-offset_top = -38.0
-offset_right = -30.0
-offset_bottom = -38.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.1, 1.1)
-mouse_filter = 2
-texture = ExtResource("7_5f1wa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="bear" parent="MarginContainer/VBoxContainer/PersonsContainer/BearButton" unique_id=985561905 instance=ExtResource("8_vy7nl")]
-position = Vector2(210, 267.99997)
-scale = Vector2(0.7, 0.7)
-
 [node name="UshasticContainer" type="Control" parent="MarginContainer/VBoxContainer/PersonsContainer" unique_id=1460492550]
 custom_minimum_size = Vector2(300, 200)
 layout_mode = 2
@@ -276,34 +195,6 @@ size_flags_vertical = 4
 script = ExtResource("9_v3c4y")
 
 [node name="Ushastic" parent="MarginContainer/VBoxContainer/PersonsContainer/UshasticContainer" unique_id=1536299866 instance=ExtResource("10_vst4d")]
-
-[node name="BirdButton" type="Button" parent="MarginContainer/VBoxContainer/PersonsContainer" unique_id=1205702489]
-custom_minimum_size = Vector2(500, 500)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_3po83")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_x63s8")
-
-[node name="tree" type="TextureRect" parent="MarginContainer/VBoxContainer/PersonsContainer/BirdButton" unique_id=957685048]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -22.0
-offset_top = 2.0
-offset_right = -22.0
-offset_bottom = 2.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.1, 1.1)
-texture = ExtResource("11_ksr2p")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Bird" parent="MarginContainer/VBoxContainer/PersonsContainer/BirdButton" unique_id=997580156 instance=ExtResource("12_om0ou")]
-position = Vector2(217.99998, 97.99999)
-scale = Vector2(0.9, 0.9)
 
 [node name="CustomButtom" parent="MarginContainer" unique_id=922711477 instance=ExtResource("13_6o5ym")]
 custom_minimum_size = Vector2(400, 120)
@@ -317,6 +208,7 @@ stream = ExtResource("14_fq4i3")
 
 [node name="ConfettiParticles" type="CPUParticles2D" parent="." unique_id=1724210641]
 position = Vector2(960, 136)
+emitting = false
 amount = 100
 texture = ExtResource("15_30j8s")
 lifetime = 6.8

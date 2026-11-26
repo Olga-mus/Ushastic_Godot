@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://bu5cdwrplh4ji"]
+
+[ext_resource type="Texture2D" uid="uid://cblb0ku543kbo" path="res://assets/wolf/wolf_tail.png" id="1_l0rve"]
+[ext_resource type="Texture2D" uid="uid://b6v0hdbi2u3em" path="res://assets/wolf/wolf_ear_left.png" id="2_mf2yl"]
+[ext_resource type="Texture2D" uid="uid://dft3f1a4e1og0" path="res://assets/wolf/wolf_ear_right.png" id="3_702ps"]
+[ext_resource type="Texture2D" uid="uid://bxcrivofom1d1" path="res://assets/wolf/wolf.png" id="4_u83lg"]
+[ext_resource type="PackedScene" uid="uid://dtcjh6i5sdxnr" path="res://scenes/parts/eyes.tscn" id="5_frkpr"]
+
+[sub_resource type="Animation" id="Animation_l0rve"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WolfTail:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WolfEarLeft:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WolfEarRight:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_mf2yl"]
+resource_name = "shake"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WolfTail:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.65999997, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.27750736, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WolfEarLeft:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.27750736, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WolfEarRight:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.27750736, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_702ps"]
+_data = {
+&"RESET": SubResource("Animation_l0rve"),
+&"shake": SubResource("Animation_mf2yl")
+}
+
+[node name="Wolf" type="Node2D" unique_id=221557134]
+metadata/_edit_group_ = true
+
+[node name="WolfTail" type="Sprite2D" parent="." unique_id=519514730]
+position = Vector2(117, -63)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_l0rve")
+
+[node name="WolfEarLeft" type="Sprite2D" parent="." unique_id=199553302]
+position = Vector2(61, -107.00001)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_mf2yl")
+
+[node name="WolfEarRight" type="Sprite2D" parent="." unique_id=1162850236]
+position = Vector2(-55, -107)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_702ps")
+
+[node name="Wolf" type="Sprite2D" parent="." unique_id=1089356296]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_u83lg")
+
+[node name="Eyes" parent="." unique_id=1035785474 instance=ExtResource("5_frkpr")]
+position = Vector2(-3, -81)
+scale = Vector2(0.75, 0.75)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1175678538]
+libraries/ = SubResource("AnimationLibrary_702ps")
