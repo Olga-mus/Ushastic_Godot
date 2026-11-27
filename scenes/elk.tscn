@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ophmacswy7hc"]
 
 [ext_resource type="Texture2D" uid="uid://clkoes0hgbyih" path="res://assets/elk/elk.png" id="1_i1j8t"]
+[ext_resource type="Script" uid="uid://csxmt1d8hp2c" path="res://scripts/elk.gd" id="1_swf3u"]
 [ext_resource type="Texture2D" uid="uid://bhpxktmaohvn" path="res://assets/elk/grass.png" id="1_uawct"]
 [ext_resource type="Texture2D" uid="uid://cs73s0vsqq0in" path="res://assets/elk/horn_left.png" id="2_swf3u"]
 [ext_resource type="PackedScene" uid="uid://dtcjh6i5sdxnr" path="res://scenes/parts/eyes.tscn" id="2_xpt62"]
@@ -67,6 +68,7 @@ _data = {
 }
 
 [node name="Elk" type="Node2D" unique_id=957173370]
+script = ExtResource("1_swf3u")
 metadata/_edit_group_ = true
 
 [node name="Grass" type="Sprite2D" parent="." unique_id=691216352]

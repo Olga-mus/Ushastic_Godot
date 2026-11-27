@@ -2,9 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://ur4hggi5nsam" path="res://scenes/lessons/base_lesson_1.tscn" id="1_enskc"]
 [ext_resource type="PackedScene" uid="uid://cdnqknyfmetei" path="res://scenes/squirrel.tscn" id="2_5ermm"]
+[ext_resource type="Script" uid="uid://cd5kv84yi3bet" path="res://scripts/lessons/persons_container_2.gd" id="2_elqmf"]
 [ext_resource type="Texture2D" uid="uid://cnqyss8ccuvqc" path="res://assets/hole/hole.png" id="2_rmbpg"]
+[ext_resource type="Script" uid="uid://s00rat5yjcej" path="res://scripts/lessons/lesson_2.gd" id="2_tdyey"]
 [ext_resource type="Texture2D" uid="uid://b48402ysf03wt" path="res://assets/tree/tree.png" id="3_82bn4"]
 [ext_resource type="PackedScene" uid="uid://ophmacswy7hc" path="res://scenes/elk.tscn" id="3_elqmf"]
+[ext_resource type="AudioStream" uid="uid://dmv378uu0j3gx" path="res://assets/sounds/lesson2/1Ru.mp3" id="8_gn0jn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ut6ft"]
 bg_color = Color(0.2901961, 0.654902, 0.75686276, 0.21568628)
@@ -55,8 +58,12 @@ corner_radius_bottom_right = 250
 corner_radius_bottom_left = 250
 
 [node name="Lesson1" unique_id=1921475603 instance=ExtResource("1_enskc")]
+script = ExtResource("2_tdyey")
 
-[node name="ElkButton" type="Button" parent="MarginContainer/VBoxContainer/PersonsContainer" parent_id_path=PackedInt32Array(1618720116) index="0" unique_id=1824589237]
+[node name="PersonsContainer" parent="MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(815305948) index="1" unique_id=1618720116]
+script = ExtResource("2_elqmf")
+
+[node name="ElkButton" type="Button" parent="MarginContainer/VBoxContainer/PersonsContainer" index="0" unique_id=1824589237]
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -85,7 +92,7 @@ stretch_mode = 5
 position = Vector2(204, 284)
 scale = Vector2(1.5, 1.5)
 
-[node name="SquirrelButton" type="Button" parent="MarginContainer/VBoxContainer/PersonsContainer" parent_id_path=PackedInt32Array(1618720116) index="2" unique_id=89786136]
+[node name="SquirrelButton" type="Button" parent="MarginContainer/VBoxContainer/PersonsContainer" index="2" unique_id=89786136]
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -111,3 +118,6 @@ stretch_mode = 5
 
 [node name="Squirrel" parent="MarginContainer/VBoxContainer/PersonsContainer/SquirrelButton" index="1" unique_id=1463011291 instance=ExtResource("2_5ermm")]
 position = Vector2(160, 68)
+
+[node name="VoicePlayer" type="AudioStreamPlayer" parent="." index="5" unique_id=1104556973]
+stream = ExtResource("8_gn0jn")

@@ -436,4 +436,3 @@ func _unhandled_input(event):
 	if event is InputEventKey and event.pressed and event.keycode == KEY_R:
 		# Обращаемся к глазам ТОЛЬКО внутри Ушастика
 		ushastic.get_node("Eyes").look_right()
-		

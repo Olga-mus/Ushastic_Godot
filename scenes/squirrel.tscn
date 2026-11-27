@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cdnqknyfmetei"]
 
+[ext_resource type="Script" uid="uid://csb28t4vi1vih" path="res://scripts/squirrel.gd" id="1_cbpea"]
 [ext_resource type="Texture2D" uid="uid://btw3s5iin10nc" path="res://assets/squirrel/squirrel_tail.png" id="1_m3xcr"]
 [ext_resource type="Texture2D" uid="uid://bovhbkl4js2s3" path="res://assets/squirrel/squirrel.png" id="2_cbpea"]
 
@@ -40,12 +41,13 @@ _data = {
 }
 
 [node name="Squirrel" type="Node2D" unique_id=1463011291]
-metadata/_edit_group_ = true
+script = ExtResource("1_cbpea")
 
 [node name="SquirrelTail" type="Sprite2D" parent="." unique_id=705761620]
-position = Vector2(57, -43)
+position = Vector2(50, -43)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("1_m3xcr")
+metadata/_edit_group_ = true
 
 [node name="Squirrel" type="Sprite2D" parent="." unique_id=1407440795]
 position = Vector2(-12, -4)
