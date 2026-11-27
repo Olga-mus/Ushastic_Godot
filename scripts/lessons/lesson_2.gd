@@ -216,7 +216,9 @@ func _on_squirrel_button_pressed():
 		print("Ребенок нажал на Птичку!")
 		if not voice_player.playing:
 			set_button_lock_state(squirrel_button, true)
+			squirrel_button.get_node("Squirrel").animate_shrink() 
 			squirrel_button.get_node("Squirrel").play_wag()
+			
 			# ⭐ Ушастик смотрит направо, пока поет птичка
 			ushastic.get_node("Eyes").look_right()
 			await play_random_squirrel_sound()
@@ -241,7 +243,8 @@ func _on_squirrel_button_pressed():
 			set_button_lock_state(squirrel_button, true)
 			set_button_lock_state(elk_button, true)
 			
-			squirrel_button.get_node("squirrel").play_swing()
+			squirrel_button.get_node("Squirrel").play_wag()
+			squirrel_button.get_node("Squirrel").animate_shrink()
 			await play_random_squirrel_sound()
 			
 			set_button_lock_state(squirrel_button, false)
@@ -253,6 +256,7 @@ func _on_elk_button_pressed():
 		print("Ребенок нажал на Мишку!")
 		if not voice_player.playing:
 			set_button_lock_state(elk_button, true)
+			elk_button.get_node("Elk").animate_grow() 
 			elk_button.get_node("Elk").play_shake()
 			# ⭐ Ушастик смотрит направо, пока поет птичка
 			ushastic.get_node("Eyes").look_left()
@@ -275,8 +279,8 @@ func _on_elk_button_pressed():
 		if not voice_player.playing:
 			set_button_lock_state(squirrel_button, true)
 			set_button_lock_state(elk_button, true)
-			
-			elk_button.get_node("elk").play_rotation()
+			elk_button.get_node("Elk").animate_grow()
+			elk_button.get_node("Elk").play_shake()
 			await play_random_elk_sound()
 			
 			set_button_lock_state(squirrel_button, false)
@@ -358,8 +362,10 @@ func check_answer(chosen_character: String):
 	
 	# Визуальный отклик на нажатие (анимация)
 	if chosen_character == "squirrel":
+		await squirrel_button.get_node("Squirrel").animate_shrink()
 		squirrel_button.get_node("Squirrel").play_wag()
 	else:
+		await elk_button.get_node("Elk").animate_grow()
 		elk_button.get_node("Elk").play_shake()
 		
 	# --- ЕСЛИ ОТВЕТ ПРАВИЛЬНЫЙ ---
